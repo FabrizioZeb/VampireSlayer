@@ -8,11 +8,5 @@ public class VampireList {
 	
 	private Vampire arrayVampiros[];
 	private int numV = 0;
-	
 
-	
-
-	
-	
-	
 }
