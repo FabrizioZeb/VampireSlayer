@@ -9,6 +9,7 @@ public class Game {
 	private SlayerList slayerlist;
 	private VampireList vampirelist;
 	private Random rand;
+	private int numciclos;
 	private long rdseed;
 	private Level dificultad;
 	private boolean finjuego;
@@ -20,9 +21,17 @@ public class Game {
 		this.dificultad = level;
 		this.slayerlist = new SlayerList();
 		this.vampirelist = new VampireList();
-		this.finjuego = false;
+		this.perdido = false;
+		this.numciclos = 0;
 		
 	}
 	
+	public int obotenernCiclos() {
+		return numciclos;
+	}
+	
+	public void establecerCiclos(int i) {
+		this.numciclos = i;
+	}
 	
 }
