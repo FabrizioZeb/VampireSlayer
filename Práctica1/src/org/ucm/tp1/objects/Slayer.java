@@ -43,7 +43,7 @@ public class Slayer {
 		return this.avanza;
 	}
 	
-	public int obtenerCordX(){
+	public int obtenercordX(){
 		return this.posx;
 	}
 	

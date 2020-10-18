@@ -38,6 +38,15 @@ public class VampireList {
 		this.numV = i;
 	}
 	
+	public boolean Vacio(int x, int y) {
+		boolean noenc = true;
+		for(int i = 0; i < numVampiros(); i++) {
+			if(arrayVampiros[i].obtenercordX() == x && arrayVampiros[i].obtenercordY() == y) 
+				return noenc = false;
+		}
+		return noenc;
+	}
+	
 	//	Si se muere un vampiro sitúa todos los vampiros una posición menos desde el vampiro i y resta 1 a numV
 	private void array(int i) {
 		for(int j = i; j < numVampiros(); j++) {

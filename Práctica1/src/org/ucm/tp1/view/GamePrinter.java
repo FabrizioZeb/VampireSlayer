@@ -16,10 +16,13 @@ public class GamePrinter {
 		this.game = game;
 		this.numRows = rows;
 		this.numCols = cols;
+		board = new String[rows][cols];
+		encodeGame(game);
 	}
 	
 	private void encodeGame(Game game) {
 		// TODO fill your code
+		//System.out.println(game.);
 		
 		
 	}
