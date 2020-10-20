@@ -22,9 +22,12 @@ public class GamePrinter {
 	
 	private void encodeGame(Game game) {
 		// TODO fill your code
-		//System.out.println(game.);
-		
-		
+		board = new String[numRows][numCols];
+		for (int i = 0; i < numRows; i++) {
+			for(int j = 0; j < numCols; j++) {
+				board[i][j] = game.position(i,j);
+			}
+		}
 	}
 	
 	 public String toString() {

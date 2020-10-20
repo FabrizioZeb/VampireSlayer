@@ -12,7 +12,7 @@ public class VampireList {
 		arrayVampiros = new Vampire[10];
 	}
 	
-	public Vampire[] obtenerlista(){
+	public Vampire[] getLista(){
 		return arrayVampiros;
 	}
 	
@@ -25,39 +25,45 @@ public class VampireList {
 		numV++;
 	}
 	
-	public boolean estaMuerto(int i) {
-		if(arrayVampiros[i].obtenerResistencia() <= 0) return true;
+	public boolean isMuerto(int i) {
+		if(arrayVampiros[i].getResistencia() <= 0) return true;
 		else return false;
 	}
 	
-	public int obtenerNumV(){
+	public int getNumV(){
 		return numV;
 	}
 	
-	public void establecerNumV(int i) {
+	public void setNumV(int i) {
 		this.numV = i;
 	}
 	
 	public boolean Vacio(int x, int y) {
 		boolean noenc = true;
 		for(int i = 0; i < numVampiros(); i++) {
-			if(arrayVampiros[i].obtenercordX() == x && arrayVampiros[i].obtenercordY() == y) 
+			if(arrayVampiros[i].getX() == x && arrayVampiros[i].getY() == y) 
 				return noenc = false;
 		}
 		return noenc;
 	}
+	
+	
 	
 	//	Si se muere un vampiro sitúa todos los vampiros una posición menos desde el vampiro i y resta 1 a numV
 	private void array(int i) {
 		for(int j = i; j < numVampiros(); j++) {
 			arrayVampiros[j] = arrayVampiros[j+1];
 		}
-		establecerNumV(obtenerNumV()-1);
+		setNumV(getNumV()-1);
 	}
 	
-	public void update() {
+	public void update(Game game) {
 		for(int i = 0; i < numVampiros(); i++) {
-			
+			if(isMuerto(i)) {
+				getLista()[i] = null;
+				array(i);
+				
+			}
 		}
 	}
 

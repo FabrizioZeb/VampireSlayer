@@ -9,11 +9,11 @@ public class Player {
 		this.monedas = 50;
 	}
 	
-	public int obtenerMonedas() {
+	public int getMonedas() {
 		return monedas;
 	}
 	
-	public void establecerMonedas(int i) {
+	public void setMonedas(int i) {
 		this.monedas = i;
 	}
 	

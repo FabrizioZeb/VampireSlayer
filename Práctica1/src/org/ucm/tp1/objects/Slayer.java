@@ -27,39 +27,39 @@ public class Slayer {
 		return "S [" + this.resistencia + "]";
 	}
 	
-	public int obtenerCiclos(){
+	public int getCiclos(){
 		return this.ciclos;
 	}
 	
-	public int obtenerResistencia(){
+	public int getResistencia(){
 		return this.resistencia;
 	}
 	
-	public boolean estaVivo(){
+	public boolean isVivo(){
 		return this.vivo;
 	}
 	
-	public boolean puedeAvanzar(){
+	public boolean isAvanzar(){
 		return this.avanza;
 	}
 	
-	public int obtenercordX(){
+	public int getX(){
 		return this.posx;
 	}
 	
-	public int obtenercordY() {
+	public int getY() {
 		return this.posy;
 	}
 	
-	public void moverX(int x) {
+	public void setX(int x) {
 		this.posx = x;
 	}
 	
-	public void moverY(int y) {
+	public void setY(int y) {
 		this.posy = y;
 	}
 	
-	public void establecerCiclos(int ciclos){
+	public void setCiclos(int ciclos){
 		this.ciclos = ciclos;
 	}
 	
