@@ -17,12 +17,15 @@ public enum Level {
 	}
 
 	// TODO fill your code
+	
+	
 	public static int NumV(Level level) {
 		int num = (Integer) null;
 		for(Level level1: level.values())
 			if(level1.equals(level1.name))num = level1.numberOfVampires;
 		return num;
 	}
+	
 
     public static Level parse(String inputString) {
         for (Level level : Level.values())

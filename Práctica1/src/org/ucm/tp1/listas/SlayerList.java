@@ -6,10 +6,11 @@ import org.ucm.tp1.logic.Game;
 public class SlayerList {
 	
 	private Slayer arraySlayer[];
-	private int numS = 0;
+	private int numS;
 	
 	public SlayerList() {
 		arraySlayer = new Slayer[50];
+		this.numS = 0;
 	}
 	
 	public Slayer[] getLista(){

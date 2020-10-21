@@ -6,10 +6,11 @@ import org.ucm.tp1.logic.Game;
 public class VampireList {
 	
 	private Vampire arrayVampiros[];
-	private int numV = 0;
+	private int numV;
 	
 	public VampireList(){
 		arrayVampiros = new Vampire[10];
+		this.numV = 0;
 	}
 	
 	public Vampire[] getLista(){

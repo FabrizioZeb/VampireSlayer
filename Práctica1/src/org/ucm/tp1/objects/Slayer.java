@@ -9,6 +9,7 @@ public class Slayer {
 	private int posx, posy;
 	private int ciclos;
 	private int coste;
+	private int frecuencia;
 	private boolean vivo;
 	private boolean avanza;
 	private Game game;
@@ -20,6 +21,7 @@ public class Slayer {
 		this.posy = y;
 		this.coste = 50;
 		this.ciclos = 0;
+		this.frecuencia = 1;
 		this.vivo = true;
 	}
 	

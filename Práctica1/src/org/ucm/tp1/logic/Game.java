@@ -55,10 +55,20 @@ public class Game {
 		}
 	}
 	
+	
+	
 	//Qué hay en la posición x e y
 	public String position(int x, int y) {
-		String sr ="";
+		for(int i = 0; i < vampirelist.getNumV(); i++) {
+			if(vampirelist.getLista()[i].getX() == x && vampirelist.getLista()[i].getY() == y)
+				return vampirelist.getLista()[i].representarV();
+		}
+		for(int i = 0; i < slayerlist.getNumS(); i++) {
+			if(slayerlist.getLista()[i].getX() == x && slayerlist.getLista()[i].getY() == y)
+				return slayerlist.getLista()[i].representarS();
+		}
 		
+		return null;
 			
 	}
 	
@@ -186,8 +196,41 @@ public class Game {
 	}
 	
 
+	public int getRandomRow() {
+		int randomX = (Integer)null;
+		int i;
+		boolean set = false;
+		if(dificultad.EASY != null) {
+			i = 0;
+			while(i < 4 && !set) {
+				randomX = rand.nextInt(4);
+				//if(Si la posicion [randomX][7] = " ") set = true;
+				i++;		
+			}	
+		}
+		else if(dificultad.HARD != null) {
+			i = 0;
+			while(i < 3 && !set) {
+				randomX = rand.nextInt(3);
+				//if(Si la posicion [randomX][7] = " ") set = true;
+				i++;		
+			}
+		}
+		else if(dificultad.INSANE != null) {
+			i = 0;
+			while(i < 6 && !set) {
+				randomX = rand.nextInt(5);
+				if(this.getGamePrinter1().getBoard()[randomX][6] == " " ) set = true;
+				i++;		
+			}	
+		}
+		return randomX;
+	}
 
 
+	public GamePrinter getGamePrinter1() {
+		return gamePrinter;
+	}
 
 
 	
