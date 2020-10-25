@@ -25,6 +25,22 @@ public class Vampire {
 		this.vivo = true;
 	}
 	
+	public void attack() {
+		if(game.getSlayerlist().getNumS() > 0) {
+			for(int i = 0; i < game.getVampirelist().getNumV();i++) {
+				for(int j=0; j < game.getSlayerlist().getNumS(); j++) {
+					if(game.getVampirelist().getLista()[i].getX() == game.getSlayerlist().getLista()[j].getX() && 
+					   (game.getVampirelist().getLista()[i].getY() - 1) == game.getSlayerlist().getLista()[j].getY()) {
+						if(game.getVampirelist().getLista()[i].getCiclos() > 0) {
+							game.getSlayerlist().getLista()[j].setResistencia(game.getSlayerlist().getLista()[j].getResistencia()-this.dmg);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
 	public String representarV() {
 		return "V [" + this.resistencia + "]";
 	}
@@ -35,6 +51,10 @@ public class Vampire {
 	
 	public int getResistencia() {
 		return this.resistencia;
+	}
+	
+	public void setResistencia(int i) {
+		this.resistencia = i;
 	}
 	
 	public boolean isVivo(){
@@ -66,5 +86,6 @@ public class Vampire {
 		this.ciclos = ciclos;
 	}
 	
+
 	
 }

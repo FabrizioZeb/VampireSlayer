@@ -17,7 +17,28 @@ public enum Level {
 	}
 
 	// TODO fill your code
+    public int getDim_x() {
+		return dim_x;
+	}
+
+	public int getDim_y() {
+		return dim_y;
+	}
+
+	//code
 	
+	public int getNumberOfVampires() {
+		return numberOfVampires;
+	}
+
+	public void setNumberOfVampires(int numberOfVampires) {
+		this.numberOfVampires = numberOfVampires;
+	}
+
+	double getVampireFrequency() {
+		return vampireFrequency;
+	}
+
 	
 	public static int NumV(Level level) {
 		int num = (Integer) null;
@@ -27,7 +48,9 @@ public enum Level {
 	}
 	
 
-    public static Level parse(String inputString) {
+
+
+	public static Level parse(String inputString) {
         for (Level level : Level.values())
             if (level.name().equalsIgnoreCase(inputString)) 
             	return level;
@@ -41,4 +64,5 @@ public enum Level {
         return allLevels.substring(0, allLevels.length() - separator.length());
     }
 
+	
 }

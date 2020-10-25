@@ -63,11 +63,12 @@ public class GamePrinter {
 
 		return str.toString();
 	    }
-	 
-	 public String[][] getBoard() {
-		 return this.board[][];
-	 }
 
+	public String[][] getBoard() {
+		
+		return this.board;
+	}
+	 
 
 }
 

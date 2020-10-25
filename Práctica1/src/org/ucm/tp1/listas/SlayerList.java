@@ -39,15 +39,7 @@ public class SlayerList {
 		this.numS = i;
 	}
 	
-	public boolean Vacio(int x, int y) {
-		boolean noenc = true;
-		for(int i = 0; i < numSlayer(); i++) {
-			if(arraySlayer[i].getX() == x && arraySlayer[i].getY() == y) 
-				return noenc = false;
-		}
-		return noenc;
-	}
-	
+
 	//	Si se muere un slayer sitúa todos los slayer una posición menos desde el slayer i y resta 1 a numS
 	
 	private void array(int i){

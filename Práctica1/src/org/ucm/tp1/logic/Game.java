@@ -12,6 +12,7 @@ public class Game {
 	
 	private Player player;
 	private GamePrinter gamePrinter;
+	private GameObjectBoard gameob;
 	
 	
 	private Random rand;
@@ -22,43 +23,49 @@ public class Game {
 	private boolean finjuego;
 	private boolean perdido;
 	
+	
 	public Game(long seed, Level level) {
 		//to-do
 		this.rdseed = seed;
 		this.dificultad = level;
 		this.slayerlist = new SlayerList();
 		this.vampirelist = new VampireList();
+		//this.gameob = new GameObjectBoard(vampirelist, slayerlist, this); 
 		this.player = new Player();
 		this.perdido = false;
 		this.numciclos = 0;
-		
 	}
 	
 
 	public boolean Empty(int x, int y) {
 		boolean vacio = false;
-		if(vampirelist.Vacio(x, y) && slayerlist.Vacio(x, y)) vacio = true;
+		if(gameob.Vacio(x,y)) vacio = true;
 		return vacio;
 	}
 	
-	public void addSlayer(Slayer sl) {
-		if(player.getMonedas() >= 50 && Empty(sl.getX(), sl.getY())) {
-			slayerlist.anadirS(sl);
-			player.setMonedas(getMonedas()-50);
-			
-		}
+	
+	
+	public boolean shouldAddVampire() {
+		return (vampirelist.getRemainingV() > 0 && rand.nextDouble() < dificultad.getVampireFrequency());
 	}
+	
 	
 	public void addVampire(Vampire vm) {
-		if(Empty(vm.getX(), vm.getY())) {
-			vampirelist.anadirV(vm);
+		if(shouldAddVampire()) {
+			int x = getRandomRow();
+			int y = dificultad.getDim_y();
+			if(Empty(vm.getX(), vm.getY())) {
+				vampirelist.anadirV(vm);
+			}
+			else System.out.println("[DEBUG] Position occuped");
 		}
+	
 	}
 	
+	//DRAW
 	
-	
-	//Qué hay en la posición x e y
 	public String position(int x, int y) {
+		String space = " ";
 		for(int i = 0; i < vampirelist.getNumV(); i++) {
 			if(vampirelist.getLista()[i].getX() == x && vampirelist.getLista()[i].getY() == y)
 				return vampirelist.getLista()[i].representarV();
@@ -68,19 +75,31 @@ public class Game {
 				return slayerlist.getLista()[i].representarS();
 		}
 		
-		return null;
+		return space;
 			
 	}
-	
-	
 	
 	public String draw() {
 		String s = "Number of cycles: " + getnumCiclos() + "\n";
 		s += "Coins: " + getMonedas() + "\n";
-		s += "Remainings vampires: " + getNumV() + "\n";
-		s += "Vampires on the board: " ;
+		s += "Remainings vampires: " + getRemainingV() + "\n";
+		s += "Vampires on the board: " + getNumV() + "\n";
 		return s;
 	}
+	
+	//ACTION
+	
+	public void situarSlayer(int x, int y) {
+		//Slayer sl = 
+		//slayerlist.anadirS(sl);
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 	public void update() {
 		vampirelist.update(this);
@@ -89,22 +108,44 @@ public class Game {
 	
 	
 	
+	private boolean gameover() {
+		int i = 0;
+		
+		while(i < dificultad.getDim_x() && !perdido) {
+			if(gameob.vmpInXY(1,0) != null) {
+				this.perdido = true;
+			}
+			i++;
+		}
+		return perdido;
+	}
 	
 	
 	
 	
 	
-	
-	
-	
-	
+	//Getters y setters:	
 	
 	public SlayerList getSlayerlist() {
 		return slayerlist;
 	}
 	
+	public GameObjectBoard getGameob() {
+		return gameob;
+	}
+
+
+	public void setGameob(GameObjectBoard gameob) {
+		this.gameob = gameob;
+	}
+
+
 	public int getNumV() {
 		return vampirelist.getNumV();
+	}
+	
+	public int getRemainingV() {
+		return vampirelist.getRemainingV();
 	}
 
 	public void setSlayerlist(SlayerList slayerlist) {
@@ -195,43 +236,19 @@ public class Game {
 		return player.getMonedas();
 	}
 	
-
 	public int getRandomRow() {
 		int randomX = (Integer)null;
-		int i;
+		int i = 0;
 		boolean set = false;
-		if(dificultad.EASY != null) {
-			i = 0;
-			while(i < 4 && !set) {
-				randomX = rand.nextInt(4);
-				//if(Si la posicion [randomX][7] = " ") set = true;
-				i++;		
-			}	
-		}
-		else if(dificultad.HARD != null) {
-			i = 0;
-			while(i < 3 && !set) {
-				randomX = rand.nextInt(3);
-				//if(Si la posicion [randomX][7] = " ") set = true;
-				i++;		
-			}
-		}
-		else if(dificultad.INSANE != null) {
-			i = 0;
-			while(i < 6 && !set) {
-				randomX = rand.nextInt(5);
-				if(this.getGamePrinter1().getBoard()[randomX][6] == " " ) set = true;
-				i++;		
-			}	
+		int x = dificultad.getDim_x();
+		int y = dificultad.getDim_y();
+		
+		while(i < x && !set) {
+			randomX = rand.nextInt(x);
+			if(this.getGamePrinter().getBoard()[randomX][y] == " ") set = true;
 		}
 		return randomX;
 	}
-
-
-	public GamePrinter getGamePrinter1() {
-		return gamePrinter;
-	}
-
 
 	
 	

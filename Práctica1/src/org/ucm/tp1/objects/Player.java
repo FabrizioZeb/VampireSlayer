@@ -1,9 +1,11 @@
 package org.ucm.tp1.objects;
 
 import java.util.Random;
+import org.ucm.tp1.logic.Game;
 
 public class Player {
 	private int monedas;
+	private Game game;
 	
 	public Player(){
 		this.monedas = 50;
@@ -18,6 +20,6 @@ public class Player {
 	}
 	
 	public void aumentar10monedas() {
-		if(Math.random() > 0.5) this.monedas += 10;	
+		if(game.getRand().nextFloat() > 0.5) this.monedas += 10;	
 	}
 }
