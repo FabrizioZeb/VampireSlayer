@@ -43,8 +43,9 @@ public class GameObjectBoard {
 		if(game.getPlayer().getMonedas() >= 50 && game.Empty(sl.getX(), sl.getY())) {
 			game.getSlayerlist().anadirS(sl);
 			game.getPlayer().setMonedas(game.getMonedas()-sl.getCoste());
-			
+		
 		}
+		else System.out.println("Las coordenadas están ocupadas");
 	}
 
 
@@ -60,6 +61,43 @@ public class GameObjectBoard {
 		
 	}
 
+	//Contenido en las cordenadas x,y para game que lo cede a gameprinter.
+	public String getObjectInPos(int x, int y) {
+		String space = " ";
+		String r ="";
+		boolean enc = false;
+		int j = 0,i = 0;
+		while (i < vampirelists.getNumV() || j < slayerlists.getNumS() && !enc) {
+			if(vampirelists.getLista()[i].getX() == x && vampirelists.getLista()[i].getY() == y ) {
+				r = vampirelists.getLista()[i].representarV();
+				enc = true;
+			}
+			else if(slayerlists.getLista()[j].getX() == x && slayerlists.getLista()[j].getY() == y) {
+				r = slayerlists.getLista()[i].representarS();
+				enc = true;
+			}
+			i++;
+			j++;
+		}
+		if(!enc)
+		return space;
+		else 
+			return r;
+	}
+	
+	public boolean GameOver() {
+		int i = 0;
+		while(i < game.getDificultad().getDim_x() && !game.isPerdido()) {
+			if(vmpInXY(1,0) != null) {
+				game.setPerdido(true);
+			}
+			i++;
+		}
+		return game.isPerdido();
+	}
+	
+	
+	
 
 	public VampireList getVampirelists() {
 		return vampirelists;
@@ -69,12 +107,6 @@ public class GameObjectBoard {
 	public SlayerList getSlayerlists() {
 		return slayerlists;
 	}
-
-	
-	
-
-	
-	
 
 }
 

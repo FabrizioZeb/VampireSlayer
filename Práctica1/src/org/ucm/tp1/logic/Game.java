@@ -26,12 +26,10 @@ public class Game {
 	
 	public Game(long seed, Level level) {
 		//to-do
+		this.rand = new Random();
 		this.rdseed = seed;
 		this.dificultad = level;
-		this.gameob = new GameObjectBoard(); 
-		this.slayerlist = gameob.getSlayerlists();
-		this.vampirelist = gameob.getVampirelists();
-		
+		this.gameob = new GameObjectBoard(); 		
 		this.player = new Player();
 		this.perdido = false;
 		this.numciclos = 0;
@@ -58,20 +56,14 @@ public class Game {
 		
 	}
 	
+	public void addSlayer(Slayer sl) {
+		gameob.addSlayer(sl);
+	}
+	
 	//DRAW
 	
-	public String position(int x, int y) { //pasar contenido a gob
-		String space = " ";
-		for(int i = 0; i < vampirelist.getNumV(); i++) {
-			if(vampirelist.getLista()[i].getX() == x && vampirelist.getLista()[i].getY() == y)
-				return vampirelist.getLista()[i].representarV();
-		}
-		for(int i = 0; i < slayerlist.getNumS(); i++) {
-			if(slayerlist.getLista()[i].getX() == x && slayerlist.getLista()[i].getY() == y)
-				return slayerlist.getLista()[i].representarS();
-		}
-		
-		return space;
+	public String position(int x, int y) { //pasar contenido a gob		
+		return gameob.getObjectInPos(x,y);
 			
 	}
 	
@@ -85,12 +77,11 @@ public class Game {
 	
 	//ACTION
 	
-	public void situarSlayer(int x, int y) {
-		//Slayer sl = 
-		//slayerlist.anadirS(sl);
-		
+	//add slayer poner cordenadas.
+	public void addSlayerByUser(int x, int y) {
+		Slayer sl = new Slayer(x,y);
+		addSlayer(sl);
 	}
-	
 	
 	
 	
@@ -100,20 +91,22 @@ public class Game {
 	public void update() {
 		vampirelist.update(this);
 		slayerlist.update(this);
+		setNumciclos(getNumciclos()+1);
+	}
+	
+	//RESET
+	
+	public void Reset() {
+		setNumciclos(0);
+		getPlayer().setMonedas(50);
+		gameob.getVampirelists().setNumV(0);
+		gameob.getVampirelists().setRemainingV(dificultad.getNumberOfVampires());
+		gameob.getSlayerlists().setNumS(0);
 	}
 	
 	
-	
 	private boolean gameover() {
-		int i = 0;
-		
-		while(i < dificultad.getDim_x() && !perdido) {
-			if(gameob.vmpInXY(1,0) != null) {
-				this.perdido = true;
-			}
-			i++;
-		}
-		return perdido;
+		return gameob.GameOver();
 	}
 	
 	

@@ -69,7 +69,7 @@ public class Controller {
 			System.out.print(prompt);
 			String read = sc.nextLine();
 			String[] instructions = read.toLowerCase().split(" ");
-			int x, y;
+			
 			if("h".equals(instructions[0]) || "help".equals(instructions[0])) {
 				System.out.println("Te ayudo");
 				validInstruction = true;
@@ -84,7 +84,13 @@ public class Controller {
 			}
 			else if("a".equals(instructions[0]) || "add".equals(instructions[0])) {
 				if(instructions.length > 1) {
-//					x = instructions[];
+					String[] instructions2 = instructions[1].split(",");
+					String[] instructions3 = instructions2[0].split("(");
+					int x = Integer.parseInt(instructions3[1]);
+					String[] instructions4 = instructions2[1].split(")");
+					int y = Integer.parseInt(instructions4[0]);
+					game.addSlayerByUser(x, y);
+					
 				}
 				else {
 					System.out.println(invalidCommandMsg);
