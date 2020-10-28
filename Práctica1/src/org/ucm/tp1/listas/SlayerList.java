@@ -9,10 +9,10 @@ public class SlayerList {
 	private int numS;
 	
 	public SlayerList() {
-		arraySlayer = new Slayer[50];
+		arraySlayer = new Slayer[28];
 		this.numS = 0;
 	}
-	
+		
 	public Slayer[] getLista(){
 		return arraySlayer;
 	}
@@ -22,8 +22,10 @@ public class SlayerList {
 	}
 	
 	public void anadirS(Slayer s){
+		if(numS < arraySlayer.length) {
 		arraySlayer[numS] = s;
 		numS++;
+		}
 	}
 	
 	public boolean isMuerto(int i){

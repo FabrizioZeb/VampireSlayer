@@ -54,6 +54,10 @@ public class Slayer {
 	public int getResistencia() {
 		return this.resistencia;
 	}
+	
+	public int getCoste() {
+		return this.coste;
+	}
 
 	public boolean isVivo() {
 		return this.vivo;

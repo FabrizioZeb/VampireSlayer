@@ -22,10 +22,16 @@ public class Controller {
 
     private Game game;
     private Scanner scanner;
+    private boolean nextstep;
     
     public Controller(Game game, Scanner scanner) {
 	    this.game = game;
 	    this.scanner = scanner;
+	    nextstep = false;
+    }
+    
+    public void pinta() {
+    	
     }
     
     public void  printGame() {
@@ -34,7 +40,77 @@ public class Controller {
     
     public void run() {
 		// TODO fill your code
+    	
+    	Scanner sc = new Scanner(System.in);
+    	
+    	while(true) {
+    		//pintar
+    		if(!nextstep) pinta();
+    		
+    		//pedir instrucciones
+    		AskUserInstruction(sc);
+    		
+    		if(!nextstep) {
+    			//move
+    			//attack
+    			//retire corpses
+    			//check if game has finished
+    		}
+    		
+    	}
+    	//sc.close();
     }
+
+	private void AskUserInstruction(Scanner sc) {
+		boolean validInstruction = false;
+		nextstep = true;
+
+		while(!validInstruction) {
+			System.out.print(prompt);
+			String read = sc.nextLine();
+			String[] instructions = read.toLowerCase().split(" ");
+			int x, y;
+			if("h".equals(instructions[0]) || "help".equals(instructions[0])) {
+				System.out.println("Te ayudo");
+				validInstruction = true;
+			}
+			else if("e".equals(instructions[0]) || "exit".equals(instructions[0])) {
+				System.out.println("Salgo");
+				validInstruction = true;
+			}
+			else if("r".equals(instructions[0]) || "reset".equals(instructions[0])) {
+				System.out.println("Reset");
+				validInstruction = true;
+			}
+			else if("a".equals(instructions[0]) || "add".equals(instructions[0])) {
+				if(instructions.length > 1) {
+//					x = instructions[];
+				}
+				else {
+					System.out.println(invalidCommandMsg);
+				}
+				System.out.println("Add Slayer");
+				validInstruction = true;
+			}
+			else if("n".equals(instructions[0]) || "none".equals(instructions[0])) {
+				System.out.println("Pues nada capo no se para que estás jugando");
+				validInstruction = true;
+				nextstep = false;
+			}
+			else if("d".equals(instructions[0]) || "dispara".equals(instructions[0])) {
+				if(instructions.length > 1)	{
+					validInstruction = true;
+					nextstep = false;
+				}
+				else {
+					System.out.println(invalidCommandMsg);
+				}
+			}
+			else {
+				System.out.println(unknownCommandMsg);
+			}
+		}
+	}
 
 }
 

@@ -39,14 +39,8 @@ public enum Level {
 		return vampireFrequency;
 	}
 
-	
-	public static int NumV(Level level) {
-		int num = (Integer) null;
-		for(Level level1: level.values())
-			if(level1.equals(level1.name))num = level1.numberOfVampires;
-		return num;
-	}
-	
+		
+	//code
 
 
 

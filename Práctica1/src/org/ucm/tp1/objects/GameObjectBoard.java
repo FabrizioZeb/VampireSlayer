@@ -10,13 +10,9 @@ public class GameObjectBoard {
 	private Game game;
 
 	
-	
-
-	public GameObjectBoard(VampireList vampirelists, SlayerList slayerlists, Game game) {
-		super();
-		this.vampirelists = vampirelists;
-		this.slayerlists = slayerlists;
-		this.game = game;
+	public GameObjectBoard() {
+		this.slayerlists = new SlayerList();
+		this.vampirelists = new VampireList();
 	}
 
 
@@ -46,11 +42,36 @@ public class GameObjectBoard {
 	public void addSlayer(Slayer sl) {
 		if(game.getPlayer().getMonedas() >= 50 && game.Empty(sl.getX(), sl.getY())) {
 			game.getSlayerlist().anadirS(sl);
-			game.getPlayer().setMonedas(game.getMonedas()-50);
+			game.getPlayer().setMonedas(game.getMonedas()-sl.getCoste());
 			
 		}
 	}
 
+
+	public void addVampire(Vampire vm) {
+		if(game.shouldAddVampire()) {
+			int x = game.getRandomRow();
+			int y = game.getDificultad().getDim_y();
+			if(game.Empty(vm.getX(), vm.getY())) {
+				vampirelists.anadirV(vm);
+			}
+			else System.out.println("[DEBUG] Position occuped");
+		}
+		
+	}
+
+
+	public VampireList getVampirelists() {
+		return vampirelists;
+	}
+
+
+	public SlayerList getSlayerlists() {
+		return slayerlists;
+	}
+
+	
+	
 
 	
 	

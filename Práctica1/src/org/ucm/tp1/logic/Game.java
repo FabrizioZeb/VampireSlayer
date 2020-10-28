@@ -28,19 +28,22 @@ public class Game {
 		//to-do
 		this.rdseed = seed;
 		this.dificultad = level;
-		this.slayerlist = new SlayerList();
-		this.vampirelist = new VampireList();
-		//this.gameob = new GameObjectBoard(vampirelist, slayerlist, this); 
+		this.gameob = new GameObjectBoard(); 
+		this.slayerlist = gameob.getSlayerlists();
+		this.vampirelist = gameob.getVampirelists();
+		
 		this.player = new Player();
 		this.perdido = false;
 		this.numciclos = 0;
 	}
 	
+	public int MaxCant() {
+		return getDificultad().getDim_x() * getDificultad().getDim_y();
+	}
+	
 
 	public boolean Empty(int x, int y) {
-		boolean vacio = false;
-		if(gameob.Vacio(x,y)) vacio = true;
-		return vacio;
+		return gameob.Vacio(x, y);
 	}
 	
 	
@@ -51,20 +54,13 @@ public class Game {
 	
 	
 	public void addVampire(Vampire vm) {
-		if(shouldAddVampire()) {
-			int x = getRandomRow();
-			int y = dificultad.getDim_y();
-			if(Empty(vm.getX(), vm.getY())) {
-				vampirelist.anadirV(vm);
-			}
-			else System.out.println("[DEBUG] Position occuped");
-		}
-	
+		gameob.addVampire(vm);
+		
 	}
 	
 	//DRAW
 	
-	public String position(int x, int y) {
+	public String position(int x, int y) { //pasar contenido a gob
 		String space = " ";
 		for(int i = 0; i < vampirelist.getNumV(); i++) {
 			if(vampirelist.getLista()[i].getX() == x && vampirelist.getLista()[i].getY() == y)

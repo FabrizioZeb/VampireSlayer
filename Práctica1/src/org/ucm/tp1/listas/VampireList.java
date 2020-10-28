@@ -11,7 +11,7 @@ public class VampireList {
 	private Game game;
 	
 	public VampireList(){
-		arrayVampiros = new Vampire[10];
+		arrayVampiros = new Vampire[28];
 		this.numV = 0;
 		this.remainingV = game.getDificultad().getNumberOfVampires();
 	}
@@ -30,9 +30,11 @@ public class VampireList {
 	
 		
 	public void anadirV(Vampire v){
+		if(numV < arrayVampiros.length) {
 		arrayVampiros[numV] = v;
 		numV++;
 		remainingV--;
+		}
 	}
 	
 	public boolean isMuerto(int i) {
