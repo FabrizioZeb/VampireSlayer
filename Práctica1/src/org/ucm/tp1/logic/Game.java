@@ -46,15 +46,7 @@ public class Game {
 	
 	
 	
-	public boolean shouldAddVampire() {
-		return (vampirelist.getRemainingV() > 0 && rand.nextDouble() < dificultad.getVampireFrequency());
-	}
-	
-	
-	public void addVampire(Vampire vm) {
-		gameob.addVampire(vm);
-		
-	}
+
 	
 	public void addSlayer(Slayer sl) {
 		gameob.addSlayer(sl);
@@ -62,7 +54,7 @@ public class Game {
 	
 	//DRAW
 	
-	public String position(int x, int y) { //pasar contenido a gob		
+	public String position(int x, int y) {		
 		return gameob.getObjectInPos(x,y);
 			
 	}
@@ -70,38 +62,68 @@ public class Game {
 	public String draw() {
 		String s = "Number of cycles: " + getnumCiclos() + "\n";
 		s += "Coins: " + getMonedas() + "\n";
-		s += "Remainings vampires: " + getRemainingV() + "\n";
-		s += "Vampires on the board: " + getNumV() + "\n";
+		s += "Remainings vampires: " + gameob.getVampirelists().getRemainingV() + "\n";
+		s += "Vampires on the board: " + gameob.getVampirelists().getNumV() + "\n";
 		return s;
 	}
 	
-	//ACTION
+	//USER ACTION
 	
-	//add slayer poner cordenadas.
-	public void addSlayerByUser(int x, int y) {
-		Slayer sl = new Slayer(x,y);
-		addSlayer(sl);
+		//RESET
+		
+		public void Reset() {
+			setNumciclos(0);
+			getPlayer().setMonedas(50);
+			gameob.getVampirelists().setNumV(0);
+			gameob.getVampirelists().setRemainingV(dificultad.getNumberOfVampires());
+			gameob.getSlayerlists().setNumS(0);
+		}
+		
+		
+		//add slayer poner cordenadas.
+		public void addSlayerByUser(int x, int y) {
+			Slayer sl = new Slayer(x,y);
+			addSlayer(sl);
+		}
+		
+		public void fire() {
+			gameob.Slayersfire();
+		}
+		
+		public void bite() {
+			gameob.Vampiresbite();
+		}
+	
+	//UPDATE
+	
+	public void moveVampires() {
+		gameob.moveV();
+	}
+	
+	//ADD VAMPIRES
+	
+	public boolean shouldAddVampire() {
+		return (vampirelist.getRemainingV() > 0 && rand.nextDouble() < dificultad.getVampireFrequency());
 	}
 	
 	
-	
-	
-	
-	
-	public void update() {
-		vampirelist.update(this);
-		slayerlist.update(this);
+	public void addVampire(Vampire vm) {
+		gameob.addVampire(vm);
 		setNumciclos(getNumciclos()+1);
 	}
 	
-	//RESET
+	//REMOVE DEAD OBJECTS
 	
-	public void Reset() {
-		setNumciclos(0);
-		getPlayer().setMonedas(50);
-		gameob.getVampirelists().setNumV(0);
-		gameob.getVampirelists().setRemainingV(dificultad.getNumberOfVampires());
-		gameob.getSlayerlists().setNumS(0);
+	public void RemoveCorpses() {
+		gameob.RemoveDeadObjs();		
+	}
+	
+	//CHECK END
+	
+	public void GameFinished() {
+		if(gameover() || gamevictory()) {
+			this.finjuego = true;
+		}
 	}
 	
 	
@@ -109,9 +131,10 @@ public class Game {
 		return gameob.GameOver();
 	}
 	
-	
-	
-	
+	private boolean gamevictory() {
+		return gameob.Victory();
+	}
+		
 	
 	//Getters y setters:	
 	
@@ -128,26 +151,6 @@ public class Game {
 		this.gameob = gameob;
 	}
 
-
-	public int getNumV() {
-		return vampirelist.getNumV();
-	}
-	
-	public int getRemainingV() {
-		return vampirelist.getRemainingV();
-	}
-
-	public void setSlayerlist(SlayerList slayerlist) {
-		this.slayerlist = slayerlist;
-	}
-
-	public VampireList getVampirelist() {
-		return vampirelist;
-	}
-
-	public void setVampirelist(VampireList vampirelist) {
-		this.vampirelist = vampirelist;
-	}
 
 	public Player getPlayer() {
 		return player;

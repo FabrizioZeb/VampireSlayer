@@ -24,22 +24,22 @@ public class Vampire {
 		this.ciclos = 0;
 		this.vivo = true;
 	}
-	
+		
 	public void attack() {
-		if(game.getSlayerlist().getNumS() > 0) {
-			for(int i = 0; i < game.getVampirelist().getNumV();i++) {
-				for(int j=0; j < game.getSlayerlist().getNumS(); j++) {
-					if(game.getVampirelist().getLista()[i].getX() == game.getSlayerlist().getLista()[j].getX() && 
-					   (game.getVampirelist().getLista()[i].getY() - 1) == game.getSlayerlist().getLista()[j].getY()) {
-						if(game.getVampirelist().getLista()[i].getCiclos() > 0) {
-							game.getSlayerlist().getLista()[j].setResistencia(game.getSlayerlist().getLista()[j].getResistencia()-this.dmg);
-						}
+		if(game.getGameob().getSlayerlists().getNumS() > 0) {
+			int i = 0; 
+			boolean target = false;
+			while(i < game.getGameob().getSlayerlists().getNumS() && !target) {
+				if(this.posx == game.getGameob().getSlayerlists().getLista()[i].getX() && (this.posy - 1 == game.getGameob().getSlayerlists().getLista()[i].getY())){
+					if(this.ciclos > 0) {
+						game.getGameob().getSlayerlists().getLista()[i].setResistencia(game.getGameob().getSlayerlists().getLista()[i].getResistencia()-this.dmg);
+						target = true;
 					}
 				}
+				i++;
 			}
 		}
 	}
-	
 	
 	public String representarV() {
 		return "V [" + this.resistencia + "]";

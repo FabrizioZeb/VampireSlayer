@@ -96,6 +96,19 @@ public class GameObjectBoard {
 		return game.isPerdido();
 	}
 	
+	public boolean Victory() {
+		boolean victoria = false;
+		if(vampirelists.getRemainingV() == 0 && !GameOver()) {
+			victoria = true;
+		}
+		return victoria;
+	}
+	
+	public void Slayersfire() {
+		for(int i = 0; i < slayerlists.getNumS(); i++) {
+			slayerlists.getLista()[i].attack();
+		}
+	}
 	
 	
 
@@ -106,6 +119,31 @@ public class GameObjectBoard {
 
 	public SlayerList getSlayerlists() {
 		return slayerlists;
+	}
+
+
+	public void Vampiresbite() {
+		for(int i = 0; i < vampirelists.getNumV(); i++) {
+			slayerlists.getLista()[i].attack();
+		}
+	}
+
+
+	public void moveV() {
+		for(int i = 0; i < vampirelists.getNumV(); i++) {
+			int nextPos = vampirelists.getLista()[i].getY() - 1;
+			if(getObjectInPos(vampirelists.getLista()[i].getX(), nextPos) == null )   {
+				vampirelists.getLista()[i].setY(nextPos);
+			}
+		}
+	}
+
+
+	public void RemoveDeadObjs() {
+		vampirelists.update(game);
+		vampirelists.update(game);
+		
+		
 	}
 
 }

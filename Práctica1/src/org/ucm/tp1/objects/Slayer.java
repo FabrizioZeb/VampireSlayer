@@ -27,16 +27,17 @@ public class Slayer {
 
 	
 	public void attack() {
-		if(game.getVampirelist().getNumV() > 0) {
-			for(int i = 0; i < game.getSlayerlist().getNumS();i++) {
-				for(int j = 0; j < game.getVampirelist().getNumV(); j++) { //Ver si usar un for o un while
-					if(game.getSlayerlist().getLista()[i].getX() == game.getVampirelist().getLista()[j].getX() && game.getSlayerlist().getLista()[i].getY() < game.getVampirelist().getLista()[j].getY()) {
-						
-						if(game.getSlayerlist().getLista()[i].getCiclos() > 0) {
-							game.getVampirelist().getLista()[j].setResistencia(game.getVampirelist().getLista()[j].getResistencia()-this.dmg);
-						}
+		if(game.getGameob().getVampirelists().getNumV() > 0) {
+			int i = 0;
+			boolean target = false;
+			while(i < game.getGameob().getVampirelists().getNumV() && !target) {
+				if(this.posx == game.getGameob().getVampirelists().getLista()[i].getX() && this.posy < game.getGameob().getVampirelists().getLista()[i].getY()) {
+					if(this.ciclos > 0) {
+						game.getGameob().getVampirelists().getLista()[i].setResistencia(game.getGameob().getVampirelists().getLista()[i].getResistencia()-this.dmg);
+						target = true;
 					}
 				}
+				i++;
 			}
 		}
 	}
