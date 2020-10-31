@@ -72,11 +72,7 @@ public class Game {
 		//RESET
 		
 		public void Reset() {
-			setNumciclos(0);
-			getPlayer().setMonedas(50);
-			gameob.getVampirelists().setNumV(0);
-			gameob.getVampirelists().setRemainingV(dificultad.getNumberOfVampires());
-			gameob.getSlayerlists().setNumS(0);
+			gameob.ResetGame();
 		}
 		
 		
@@ -100,6 +96,11 @@ public class Game {
 		gameob.moveV();
 	}
 	
+	public void update() {
+		setNumciclos(getNumciclos()+1);
+	}
+	
+	
 	//ADD VAMPIRES
 	
 	public boolean shouldAddVampire() {
@@ -109,7 +110,6 @@ public class Game {
 	
 	public void addVampire(Vampire vm) {
 		gameob.addVampire(vm);
-		setNumciclos(getNumciclos()+1);
 	}
 	
 	//REMOVE DEAD OBJECTS
@@ -125,6 +125,7 @@ public class Game {
 			this.finjuego = true;
 		}
 	}
+	
 	
 	
 	private boolean gameover() {
@@ -164,10 +165,6 @@ public class Game {
 		return gamePrinter;
 	}
 
-	public void setGamePrinter(GamePrinter gamePrinter) {
-		this.gamePrinter = gamePrinter;
-	}
-
 	public Random getRand() {
 		return rand;
 	}
@@ -176,20 +173,8 @@ public class Game {
 		this.rand = rand;
 	}
 
-	public long getRdseed() {
-		return rdseed;
-	}
-
-	public void setRdseed(long rdseed) {
-		this.rdseed = rdseed;
-	}
-
 	public Level getDificultad() {
 		return dificultad;
-	}
-
-	public void setDificultad(Level dificultad) {
-		this.dificultad = dificultad;
 	}
 
 	public int getNumciclos() {

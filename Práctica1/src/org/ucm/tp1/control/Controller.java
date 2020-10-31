@@ -43,7 +43,7 @@ public class Controller {
     	
     	Scanner sc = new Scanner(System.in);
     	
-    	while(true) {
+    	while(!game.isFinjuego()) {
     		//pintar
     		if(!nextstep) pinta();
     		
@@ -52,9 +52,13 @@ public class Controller {
     		
     		if(!nextstep) {
     			//move
+    			game.moveVampires();
     			//attack
+    			game.getGameob().Vampiresbite();
     			//retire corpses
+    			game.RemoveCorpses();
     			//check if game has finished
+    			game.GameFinished();
     		}
     		
     	}
@@ -67,15 +71,16 @@ public class Controller {
 
 		while(!validInstruction) {
 			System.out.print(prompt);
-			String read = sc.nextLine();
+			String read = sc.nextLine().trim();
 			String[] instructions = read.toLowerCase().split(" ");
 			
 			if("h".equals(instructions[0]) || "help".equals(instructions[0])) {
-				System.out.println("Te ayudo");
+				System.out.println(helpMsg);
 				validInstruction = true;
 			}
 			else if("e".equals(instructions[0]) || "exit".equals(instructions[0])) {
-				System.out.println("Salgo");
+				System.out.println("Fin del Juego");
+				System.exit(0);
 				validInstruction = true;
 			}
 			else if("r".equals(instructions[0]) || "reset".equals(instructions[0])) {
@@ -89,8 +94,7 @@ public class Controller {
 					int x = Integer.parseInt(instructions3[1]);
 					String[] instructions4 = instructions2[1].split(")");
 					int y = Integer.parseInt(instructions4[0]);
-					game.addSlayerByUser(x, y);
-					
+					game.addSlayerByUser(x, y);	
 				}
 				else {
 					System.out.println(invalidCommandMsg);
@@ -102,6 +106,7 @@ public class Controller {
 				System.out.println("Pues nada capo no se para que estás jugando");
 				validInstruction = true;
 				nextstep = false;
+				game.update();
 			}
 			else if("d".equals(instructions[0]) || "dispara".equals(instructions[0])) {
 				if(instructions.length > 1)	{

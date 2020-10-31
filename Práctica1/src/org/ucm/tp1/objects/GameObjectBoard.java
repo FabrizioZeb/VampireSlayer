@@ -45,7 +45,7 @@ public class GameObjectBoard {
 			game.getPlayer().setMonedas(game.getMonedas()-sl.getCoste());
 		
 		}
-		else System.out.println("Las coordenadas están ocupadas");
+		else System.out.println("Las coordenadas estan ocupadas o monedas insuficientes");
 	}
 
 
@@ -142,6 +142,17 @@ public class GameObjectBoard {
 	public void RemoveDeadObjs() {
 		vampirelists.update(game);
 		vampirelists.update(game);
+		
+		
+	}
+
+
+	public void ResetGame() {
+		vampirelists = new VampireList();
+		slayerlists = new SlayerList();
+		game.getPlayer().setMonedas(50);
+		game.setNumciclos(0);
+		
 		
 		
 	}
