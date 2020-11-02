@@ -2,7 +2,7 @@ package org.ucm.tp1.view;
 
 import org.ucm.tp1.logic.Game;
 import org.ucm.tp1.utils.MyStringUtils;
-import org.ucm.tp1.logic.Level;
+
 
 public class GamePrinter {
 	
@@ -22,13 +22,20 @@ public class GamePrinter {
 	
 	private void encodeGame(Game game) {
 		// TODO fill your code
-		board = new String[numRows][numCols];
 		for (int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numCols; j++) {
-				board[i][j] = game.position(i,j);
+				board[i][j] = space;
 			}
 		}
+		
+		for (int i = 0 ; i < numRows; i++) {
+			for (int j = 0; j < numCols; j++) {
+				board[i][j] = game.getGameob().getObjectInPos(i, j);
+			}
+		}
+				
 	}
+		
 	
 	 public String toString() {
 		encodeGame(game);
@@ -65,10 +72,14 @@ public class GamePrinter {
 	    }
 
 	public String[][] getBoard() {
-		
 		return this.board;
 	}
+
+	public void setinBoard(int x, int y, String i) {
+		board[x][y] = i;
+	}
 	 
+	
 
 }
 

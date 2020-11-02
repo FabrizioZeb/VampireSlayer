@@ -18,7 +18,7 @@ public enum Level {
 
 	// TODO fill your code
     public int getDim_x() {
-		return dim_x;
+		return this.dim_x;
 	}
 
 	public int getDim_y() {
@@ -35,7 +35,7 @@ public enum Level {
 		this.numberOfVampires = numberOfVampires;
 	}
 
-	double getVampireFrequency() {
+	public double getVampireFrequency() {
 		return vampireFrequency;
 	}
 

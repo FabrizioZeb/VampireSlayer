@@ -1,14 +1,15 @@
 package org.ucm.tp1.objects;
 
-import java.util.Random;
+
 import org.ucm.tp1.logic.Game;
 
 public class Player {
 	private int monedas;
 	private Game game;
 	
-	public Player(){
+	public Player(Game game){
 		this.monedas = 50;
+		this.game = game;
 	}
 	
 	public int getMonedas() {

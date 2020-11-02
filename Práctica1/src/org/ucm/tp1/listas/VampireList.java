@@ -10,7 +10,9 @@ public class VampireList {
 	private int remainingV;
 	private Game game;
 	
-	public VampireList(){
+	public VampireList(Game game){
+		super();
+		this.game = game;
 		arrayVampiros = new Vampire[28];
 		this.numV = 0;
 		this.remainingV = game.getDificultad().getNumberOfVampires();

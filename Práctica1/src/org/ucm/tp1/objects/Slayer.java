@@ -14,7 +14,7 @@ public class Slayer {
 	private boolean avanza;
 	private Game game;
 
-	public Slayer(int x, int y) {
+	public Slayer(Game game,int x, int y) {
 		this.resistencia = 3;
 		this.dmg = 1;
 		this.posx = x;
@@ -23,6 +23,7 @@ public class Slayer {
 		this.ciclos = 0;
 		this.frecuencia = 1;
 		this.vivo = true;
+		this.game = game;
 	}
 
 	

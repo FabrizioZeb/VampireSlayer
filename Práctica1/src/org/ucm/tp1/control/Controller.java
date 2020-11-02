@@ -1,7 +1,7 @@
 package org.ucm.tp1.control;
 
 import java.util.Scanner;
-
+import org.ucm.tp1.view.GamePrinter;
 import org.ucm.tp1.logic.Game;
 
 public class Controller {
@@ -23,6 +23,7 @@ public class Controller {
     private Game game;
     private Scanner scanner;
     private boolean nextstep;
+    private GamePrinter gameprinter;
     
     public Controller(Game game, Scanner scanner) {
 	    this.game = game;
@@ -31,7 +32,8 @@ public class Controller {
     }
     
     public void pinta() {
-    	
+    	System.out.println(game.draw());
+    	System.out.println(game.getGameob().gameprint());
     }
     
     public void  printGame() {
@@ -45,8 +47,8 @@ public class Controller {
     	
     	while(!game.isFinjuego()) {
     		//pintar
-    		if(!nextstep) pinta();
-    		
+    		if(!nextstep)
+    		pinta();
     		//pedir instrucciones
     		AskUserInstruction(sc);
     		
@@ -55,6 +57,8 @@ public class Controller {
     			game.moveVampires();
     			//attack
     			game.getGameob().Vampiresbite();
+    			//add vampire
+    			game.addVampire();
     			//retire corpses
     			game.RemoveCorpses();
     			//check if game has finished
@@ -90,10 +94,8 @@ public class Controller {
 			else if("a".equals(instructions[0]) || "add".equals(instructions[0])) {
 				if(instructions.length > 1) {
 					String[] instructions2 = instructions[1].split(",");
-					String[] instructions3 = instructions2[0].split("(");
-					int x = Integer.parseInt(instructions3[1]);
-					String[] instructions4 = instructions2[1].split(")");
-					int y = Integer.parseInt(instructions4[0]);
+					int x = Integer.parseInt(instructions2[0].substring(1));
+					int y = Integer.parseInt(instructions2[1].substring(0, 1));
 					game.addSlayerByUser(x, y);	
 				}
 				else {
@@ -103,19 +105,10 @@ public class Controller {
 				validInstruction = true;
 			}
 			else if("n".equals(instructions[0]) || "none".equals(instructions[0])) {
-				System.out.println("Pues nada capo no se para que estás jugando");
+				System.out.println("Siguiente turno");
 				validInstruction = true;
 				nextstep = false;
 				game.update();
-			}
-			else if("d".equals(instructions[0]) || "dispara".equals(instructions[0])) {
-				if(instructions.length > 1)	{
-					validInstruction = true;
-					nextstep = false;
-				}
-				else {
-					System.out.println(invalidCommandMsg);
-				}
 			}
 			else {
 				System.out.println(unknownCommandMsg);

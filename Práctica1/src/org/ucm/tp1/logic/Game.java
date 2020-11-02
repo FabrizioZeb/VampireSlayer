@@ -2,22 +2,17 @@ package org.ucm.tp1.logic;
 
 import java.util.Random;
 import org.ucm.tp1.objects.*;
-import org.ucm.tp1.view.GamePrinter;
 import org.ucm.tp1.listas.*;
+import org.ucm.tp1.view.GamePrinter;
 
 public class Game {
-	
-	private SlayerList slayerlist;
-	private VampireList vampirelist;
+
 	
 	private Player player;
-	private GamePrinter gamePrinter;
 	private GameObjectBoard gameob;
-	
+	private GamePrinter gameprinter;
 	
 	private Random rand;
-	private long rdseed;
-	
 	private Level dificultad;
 	private int numciclos;
 	private boolean finjuego;
@@ -25,12 +20,12 @@ public class Game {
 	
 	
 	public Game(long seed, Level level) {
-		//to-do
-		this.rand = new Random();
-		this.rdseed = seed;
+		super();
+		this.rand = new Random(seed);
 		this.dificultad = level;
-		this.gameob = new GameObjectBoard(); 		
-		this.player = new Player();
+		this.gameob = new GameObjectBoard(this); 		
+		this.gameprinter = new GamePrinter(this,dificultad.getDim_x(), dificultad.getDim_y());
+		this.player = new Player(this);
 		this.perdido = false;
 		this.numciclos = 0;
 	}
@@ -44,9 +39,6 @@ public class Game {
 		return gameob.Vacio(x, y);
 	}
 	
-	
-	
-
 	
 	public void addSlayer(Slayer sl) {
 		gameob.addSlayer(sl);
@@ -67,6 +59,10 @@ public class Game {
 		return s;
 	}
 	
+	public String gameprint() {
+		return gameob.gameprint();
+	}
+	
 	//USER ACTION
 	
 		//RESET
@@ -78,7 +74,7 @@ public class Game {
 		
 		//add slayer poner cordenadas.
 		public void addSlayerByUser(int x, int y) {
-			Slayer sl = new Slayer(x,y);
+			Slayer sl = new Slayer(this,x,y);
 			addSlayer(sl);
 		}
 		
@@ -98,17 +94,24 @@ public class Game {
 	
 	public void update() {
 		setNumciclos(getNumciclos()+1);
+		player.aumentar10monedas();
+		for(int i = 0; i < gameob.getVampirelists().getNumV(); i++) {
+			gameob.getVampirelists().getLista()[i].setCiclos(gameob.getVampirelists().getLista()[i].getCiclos()+1);
+		}
+		for(int i = 0; i < gameob.getSlayerlists().getNumS(); i++) {
+			gameob.getSlayerlists().getLista()[i].setCiclos(gameob.getSlayerlists().getLista()[i].getCiclos()+1);
+		}
 	}
 	
 	
 	//ADD VAMPIRES
 	
 	public boolean shouldAddVampire() {
-		return (vampirelist.getRemainingV() > 0 && rand.nextDouble() < dificultad.getVampireFrequency());
+		return (gameob.getVampirelists().getRemainingV() > 0 && rand.nextDouble() < dificultad.getVampireFrequency());
 	}
-	
-	
-	public void addVampire(Vampire vm) {
+		
+	public void addVampire() {
+		Vampire vm = new Vampire(this,0, 0);
 		gameob.addVampire(vm);
 	}
 	
@@ -139,19 +142,9 @@ public class Game {
 	
 	//Getters y setters:	
 	
-	public SlayerList getSlayerlist() {
-		return slayerlist;
-	}
-	
 	public GameObjectBoard getGameob() {
-		return gameob;
+		return this.gameob;
 	}
-
-
-	public void setGameob(GameObjectBoard gameob) {
-		this.gameob = gameob;
-	}
-
 
 	public Player getPlayer() {
 		return player;
@@ -159,10 +152,6 @@ public class Game {
 
 	public void setPlayer(Player player) {
 		this.player = player;
-	}
-
-	public GamePrinter getGamePrinter() {
-		return gamePrinter;
 	}
 
 	public Random getRand() {
@@ -213,19 +202,13 @@ public class Game {
 		return player.getMonedas();
 	}
 	
-	public int getRandomRow() {
-		int randomX = (Integer)null;
-		int i = 0;
-		boolean set = false;
-		int x = dificultad.getDim_x();
-		int y = dificultad.getDim_y();
-		
-		while(i < x && !set) {
-			randomX = rand.nextInt(x);
-			if(this.getGamePrinter().getBoard()[randomX][y] == " ") set = true;
-		}
-		return randomX;
+
+
+	public GamePrinter getGameprinter() {
+		return gameprinter;
 	}
+
+	
 
 	
 	

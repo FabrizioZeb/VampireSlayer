@@ -9,10 +9,12 @@ public class SlayerList {
 	private int numS;
 	
 	public SlayerList() {
+		super();
 		arraySlayer = new Slayer[28];
 		this.numS = 0;
 	}
-		
+	
+
 	public Slayer[] getLista(){
 		return arraySlayer;
 	}
@@ -54,11 +56,9 @@ public class SlayerList {
 	
 	
 	public void update(Game game) {
-		boolean x;
-		for(int i = 0; i < numSlayer(); i++) {
-			game.establecerCiclos(i);
- 
+		for(int i = 0; i < numSlayer(); i++) { 
 			if(isMuerto(i)) {
+				getLista()[i] = null;
 				array(i);
 			}
 		}
