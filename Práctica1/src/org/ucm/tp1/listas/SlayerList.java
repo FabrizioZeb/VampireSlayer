@@ -31,7 +31,7 @@ public class SlayerList {
 	}
 	
 	public boolean isMuerto(int i){
-		if(arraySlayer[i].getResistencia() <= 0) return true;
+		if(arraySlayer[i].getResistencia() < 0) return true;
 		else return false;
 	}
 	
@@ -58,10 +58,31 @@ public class SlayerList {
 	public void update(Game game) {
 		for(int i = 0; i < numSlayer(); i++) { 
 			if(isMuerto(i)) {
-				getLista()[i] = null;
+				arraySlayer[i] = null;
 				array(i);
 			}
 		}
+	}
+
+
+	public int TakePosXofSlayerI(int i) {
+		return arraySlayer[i].getX();
+	}
+
+
+	public int TakePosYofSlayerI(int i) {
+		return arraySlayer[i].getY();
+	}
+
+
+	public int VidaActual(int i) {
+		return arraySlayer[i].getResistencia();
+	}
+
+
+	public void RecibirDmg(int i, int nexthp) {
+		arraySlayer[i].setResistencia(nexthp);
+		
 	}
 	
 }

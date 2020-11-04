@@ -4,37 +4,41 @@ import org.ucm.tp1.logic.Game;
 
 public class Slayer {
 
+	public static final int COSTE = 50;
+	
 	private int resistencia;
 	private int dmg;
 	private int posx, posy;
 	private int ciclos;
 	private int coste;
-	private int frecuencia;
+//	private int frecuencia;
 	private boolean vivo;
 	private boolean avanza;
 	private Game game;
+	private boolean objetivo; 
 
 	public Slayer(Game game,int x, int y) {
 		this.resistencia = 3;
 		this.dmg = 1;
 		this.posx = x;
 		this.posy = y;
-		this.coste = 50;
+		this.coste = COSTE;
 		this.ciclos = 0;
-		this.frecuencia = 1;
+//		this.frecuencia = 1;
 		this.vivo = true;
 		this.game = game;
+		this.objetivo = false;
 	}
 
 	
 	public void attack() {
-		if(game.getGameob().getVampirelists().getNumV() > 0) {
+		if(game.GameobNumVorNumS(objetivo) > 0) {
 			int i = 0;
 			boolean target = false;
-			while(i < game.getGameob().getVampirelists().getNumV() && !target) {
-				if(this.posx == game.getGameob().getVampirelists().getLista()[i].getX() && this.posy < game.getGameob().getVampirelists().getLista()[i].getY()) {
+			while(i < game.GameobNumVorNumS(objetivo) && !target) {
+				if(this.posx == game.GameobGetsXorYofVorS(i, false, objetivo ) && this.posy < game.GameobGetsXorYofVorS(i, true, objetivo)) {
 					if(this.ciclos > 0) {
-						game.getGameob().getVampirelists().getLista()[i].setResistencia(game.getGameob().getVampirelists().getLista()[i].getResistencia()-this.dmg);
+						game.GameobVorSTakeDmg(i, dmg, objetivo); //Si boolean es false se vampire recibe dmg
 						target = true;
 					}
 				}

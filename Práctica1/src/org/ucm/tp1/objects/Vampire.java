@@ -13,6 +13,7 @@ public class Vampire {
 	private boolean vivo;
 	private boolean avanza;
 	private Game game;
+	private boolean objetivo;
 	
 	//Construye un nuevo zombie, por lo que ciclos = 0 y 
 	public Vampire (Game game,int x, int y) {
@@ -24,16 +25,17 @@ public class Vampire {
 		this.ciclos = 0;
 		this.vivo = true;
 		this.game = game;
+		this.objetivo = true;
 	}
 		
 	public void attack() {
-		if(game.getGameob().getSlayerlists().getNumS() > 0) {
+		if(game.GameobNumVorNumS(objetivo) > 0) {
 			int i = 0; 
 			boolean target = false;
-			while(i < game.getGameob().getSlayerlists().getNumS() && !target) {
-				if(this.posx == game.getGameob().getSlayerlists().getLista()[i].getX() && (this.posy - 1 == game.getGameob().getSlayerlists().getLista()[i].getY())){
+			while(i < game.GameobNumVorNumS(objetivo) && !target) {
+				if(this.posx == game.GameobGetsXorYofVorS(i, false, objetivo) && (this.posy - 1 == game.GameobGetsXorYofVorS(i, true, objetivo))){
 					if(this.ciclos > 0) {
-						game.getGameob().getSlayerlists().getLista()[i].setResistencia(game.getGameob().getSlayerlists().getLista()[i].getResistencia()-this.dmg);
+						game.GameobVorSTakeDmg(i, dmg, objetivo);
 						target = true;
 					}
 				}

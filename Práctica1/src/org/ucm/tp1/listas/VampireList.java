@@ -13,7 +13,7 @@ public class VampireList {
 	public VampireList(Game game){
 		super();
 		this.game = game;
-		arrayVampiros = new Vampire[28];
+		arrayVampiros = new Vampire[game.getDificultad().getNumberOfVampires()];
 		this.numV = 0;
 		this.remainingV = game.getDificultad().getNumberOfVampires();
 	}
@@ -40,7 +40,7 @@ public class VampireList {
 	}
 	
 	public boolean isMuerto(int i) {
-		if(arrayVampiros[i].getResistencia() <= 0) return true;
+		if(arrayVampiros[i].getResistencia() < 0) return true;
 		else return false;
 	}
 	
@@ -65,11 +65,26 @@ public class VampireList {
 	public void update(Game game) {
 		for(int i = 0; i < getNumV(); i++) {
 			if(isMuerto(i)) {
-				getLista()[i] = null;
+				arrayVampiros[i] = null;
 				array(i);
 				
 			}
 		}
 	}
-
+	
+	public int TakePosXofVampireI(int i) {
+		return arrayVampiros[i].getX();
+	}
+	
+	public int TakePosYofVampireI(int i) {
+		return arrayVampiros[i].getY();
+	}
+	
+	public void RecibirDaño(int i,int nexthp) {
+		arrayVampiros[i].setResistencia(nexthp);
+	}
+	
+	public int VidaActual(int i) {
+		return arrayVampiros[i].getResistencia();
+	}
 }

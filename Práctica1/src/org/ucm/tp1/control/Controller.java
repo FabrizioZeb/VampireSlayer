@@ -57,6 +57,7 @@ public class Controller {
     			game.moveVampires();
     			//attack
     			game.getGameob().Vampiresbite();
+    			game.getGameob().Slayersfire();
     			//add vampire
     			game.addVampire();
     			//retire corpses
@@ -92,17 +93,22 @@ public class Controller {
 				validInstruction = true;
 			}
 			else if("a".equals(instructions[0]) || "add".equals(instructions[0])) {
-				if(instructions.length > 1) {
-					String[] instructions2 = instructions[1].split(",");
+				if(instructions.length > 2) {
+					int col = Integer.parseInt(instructions[1]);
+					int row = Integer.parseInt(instructions[2]);
+					if(col <= game.getDificultad().getDim_x() && row <= game.getDificultad().getDim_y()) {
+						game.addSlayerByUser(row,col);
+						validInstruction = true;
+					}
+					else System.out.println("Invalid position");
+					/*String[] instructions2 = instructions[1].split(",");
 					int x = Integer.parseInt(instructions2[0].substring(1));
-					int y = Integer.parseInt(instructions2[1].substring(0, 1));
-					game.addSlayerByUser(x, y);	
+					int y = Integer.parseInt(instructions2[1].substring(0, 1));*/					
 				}
 				else {
 					System.out.println(invalidCommandMsg);
 				}
-				System.out.println("Add Slayer");
-				validInstruction = true;
+				
 			}
 			else if("n".equals(instructions[0]) || "none".equals(instructions[0])) {
 				System.out.println("Siguiente turno");

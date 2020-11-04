@@ -23,10 +23,10 @@ public class GameObjectBoard {
 		int i = 0, j = 0;
 		while ((i < vampirelists.getNumV() || j < slayerlists.getNumS()) && noenc) {
 			if(vampirelists.getNumV() > 0)
-			if(vampirelists.getLista()[i].getX() == x && vampirelists.getLista()[i].getY() == y)
+			if(vampirelists.TakePosXofVampireI(i) == x && vampirelists.TakePosYofVampireI(i) == y)
 				noenc = false;
 			if(slayerlists.getNumS() > 0)
-			if(slayerlists.getLista()[i].getX() == x && slayerlists.getLista()[i].getY() == y)
+			if(slayerlists.TakePosXofSlayerI(i) == x && slayerlists.TakePosYofSlayerI(i) == y)
 				noenc = false;
 			i++;
 			j++;
@@ -39,7 +39,7 @@ public class GameObjectBoard {
 		int i = 0;
 		boolean enc = false;
 		while(i < vampirelists.getNumV() && !enc) {
-			if(x == vampirelists.getLista()[i].getX() && y == vampirelists.getLista()[i].getY()) {
+			if(vampirelists.TakePosXofVampireI(i) == x && vampirelists.TakePosYofVampireI(i) == y) {
 				v = vampirelists.getLista()[i];
 				enc = true;
 			}
@@ -54,24 +54,42 @@ public class GameObjectBoard {
 			game.getPlayer().setMonedas(game.getMonedas()-sl.getCoste());
 			game.getGameprinter().setinBoard(sl.getX(), sl.getY(), sl.representarS());
 		}
-		else System.out.println("Las coordenadas estan ocupadas o monedas insuficientes");
+		else if(game.getPlayer().getMonedas() < 50)System.out.println("Monedas insuficientes");
+		else if(!game.Empty(sl.getX(), sl.getY()))System.out.println("Coordenadas Ocupadas");
 	}
 
-
+	//Arreglado (add vampire y random row
+	
+	
 	public void addVampire(Vampire vm) {
 		if(game.shouldAddVampire()) {
-			int y = getRandomRow();
-			int x = game.getDificultad().getDim_y() - 1;
-			vm = new Vampire(game,x,y);
+			int row = getRandomRow();
+			int col = game.getDificultad().getDim_x() - 1;
+			vm = new Vampire(game,row,col);
 			if(game.Empty(vm.getX(), vm.getY())) {
 				vampirelists.anadirV(vm);
 				game.getGameprinter().setinBoard(vm.getX(), vm.getY(), vm.representarV());
 			}
 			else System.out.println("[DEBUG] Position occuped");
 		}
-		
 	}
+	
+	public int getRandomRow() {
+		int randomRow = 0;
+		int i = 0;
+		boolean set = false;
+		int cols = game.getDificultad().getDim_x()-1;
+		int rows = game.getDificultad().getDim_y();
+		while(i < rows && !set) {
+			randomRow = game.getRand().nextInt(rows);
+			if(game.getGameprinter().getBoard()[randomRow][cols] == " ") set = true;
+			i++;
+		}
+		return randomRow;
+	}
+	
 
+	
 	//Contenido en las cordenadas x,y para game que lo cede a gameprinter.
 	public String getObjectInPos(int x, int y) {
 		String space = " ";
@@ -79,12 +97,12 @@ public class GameObjectBoard {
 		boolean enc = false;
 		int j = 0,i = 0;
 		while (i < vampirelists.getNumV() || j < slayerlists.getNumS() && !enc) {
-			if(vampirelists.getNumV() > 0 && (vampirelists.getLista()[i].getX() == x && vampirelists.getLista()[i].getY() == y)) {
+			if(i < vampirelists.getNumV() && vampirelists.getNumV() > 0 && vampirelists.TakePosXofVampireI(i) == x && vampirelists.TakePosYofVampireI(i) == y){
 				r = vampirelists.getLista()[i].representarV();
 				enc = true;
 			}
-			else if(slayerlists.getNumS() > 0 && (slayerlists.getLista()[j].getX() == x && slayerlists.getLista()[j].getY() == y)) {
-				r = slayerlists.getLista()[i].representarS();
+			else if(j < slayerlists.getNumS() && slayerlists.getNumS() > 0 && (slayerlists.TakePosXofSlayerI(i) == x && slayerlists.TakePosYofSlayerI(i) == y) ){
+				r = slayerlists.getLista()[j].representarS();
 				enc = true;
 			}
 			i++;
@@ -152,7 +170,7 @@ public class GameObjectBoard {
 
 
 	public void RemoveDeadObjs() {
-		vampirelists.update(game);
+		slayerlists.update(game);
 		vampirelists.update(game);
 		
 		
@@ -160,12 +178,10 @@ public class GameObjectBoard {
 
 
 	public void ResetGame() {
-		vampirelists = new VampireList(game);
-		slayerlists = new SlayerList();
-		game.getPlayer().setMonedas(50);
-		game.setNumciclos(0);
-		
-		
+		this.vampirelists = new VampireList(game);
+		this.slayerlists = new SlayerList();
+		game.ResetPlayer();
+		game.ResetNumCiclos();
 		
 	}
 
@@ -174,20 +190,34 @@ public class GameObjectBoard {
 		return game.getGameprinter().toString();
 	}
 	
+
 	
-	public int getRandomRow() {
-		int randomX =0 ;
-		int i = 0;
-		boolean set = false;
-		int x = game.getDificultad().getDim_x();
-		int y = game.getDificultad().getDim_y()-1;
+	
+	public int TakeVPos(int i, boolean xory) {
+		if(xory == false) return vampirelists.TakePosXofVampireI(i);
+		else return vampirelists.TakePosYofVampireI(i);
 		
-		while(i < x && !set) {
-			randomX = game.getRand().nextInt(x);
-			if(game.getGameprinter().getBoard()[y][randomX] == " ") set = true;
-		}
-		return randomX;
+	}
+	
+	public int TakeSPos(int i, boolean xory) {
+		if(xory == false) return slayerlists.TakePosXofSlayerI(i);
+		else return slayerlists.TakePosYofSlayerI(i);
+	}
+	
+	public void SlayerTakeDmg(int i, int dmg) {
+		slayerlists.RecibirDmg(i,(slayerlists.VidaActual(i)-dmg));
+	}
+	
+	public void VampireTakeDmg(int i,int dmg) {
+		vampirelists.RecibirDaño(i,(vampirelists.VidaActual(i)-dmg));
+	}
+	
+	public int GetNumV() {
+		return vampirelists.getNumV();
 	}
 
+	public int GetNumS() {
+		return slayerlists.getNumS();
+	}
 }
 

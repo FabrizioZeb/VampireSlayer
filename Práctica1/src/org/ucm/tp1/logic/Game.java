@@ -140,6 +140,42 @@ public class Game {
 	}
 		
 	
+	public void ResetPlayer() {
+		player.ResetMonedas();
+	}
+	
+	public void ResetNumCiclos() {
+		numciclos = 0;
+	}
+		
+	
+	//Gameob Functions
+	
+	public int GameobGetsXorYofVorS(int i, boolean xory, boolean sorv) {
+		int pos = 0;
+		if(sorv == false) pos = gameob.TakeVPos(i, xory);
+		else if(sorv == true) pos = gameob.TakeSPos(i, xory);
+		return pos;
+	}
+	
+	public void GameobVorSTakeDmg(int i, int dmg, boolean sorv) {
+		if(sorv == false) gameob.VampireTakeDmg(i, dmg);
+		else if(sorv == true) gameob.SlayerTakeDmg(i, dmg);
+	}
+	
+	public int GameobNumVorNumS(boolean sorv) {
+		int pos = 0;
+		if(sorv == false) pos = gameob.GetNumV();
+		else if(sorv == true) pos = gameob.GetNumS();
+		return pos;
+	}
+		
+
+	
+	//Gameob Functions
+	
+	
+	
 	//Getters y setters:	
 	
 	public GameObjectBoard getGameob() {
@@ -207,6 +243,8 @@ public class Game {
 	public GamePrinter getGameprinter() {
 		return gameprinter;
 	}
+
+
 
 	
 
