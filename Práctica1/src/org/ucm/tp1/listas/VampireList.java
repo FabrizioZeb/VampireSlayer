@@ -80,11 +80,23 @@ public class VampireList {
 		return arrayVampiros[i].getY();
 	}
 	
+	public void MoveVto(int i, int nextpos) {
+		arrayVampiros[i].setY(nextpos);
+	}
+	
 	public void RecibirDaño(int i,int nexthp) {
 		arrayVampiros[i].setResistencia(nexthp);
 	}
 	
 	public int VidaActual(int i) {
 		return arrayVampiros[i].getResistencia();
+	}
+
+	public String Icon(int i) {
+		return arrayVampiros[i].representarV();
+	}
+	
+	public int CiclesOfV(int i) {
+		return arrayVampiros[i].getCiclos();
 	}
 }

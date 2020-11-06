@@ -99,11 +99,9 @@ public class Controller {
 					if(col <= game.getDificultad().getDim_x() && row <= game.getDificultad().getDim_y()) {
 						game.addSlayerByUser(row,col);
 						validInstruction = true;
+						nextstep = false;
 					}
 					else System.out.println("Invalid position");
-					/*String[] instructions2 = instructions[1].split(",");
-					int x = Integer.parseInt(instructions2[0].substring(1));
-					int y = Integer.parseInt(instructions2[1].substring(0, 1));*/					
 				}
 				else {
 					System.out.println(invalidCommandMsg);

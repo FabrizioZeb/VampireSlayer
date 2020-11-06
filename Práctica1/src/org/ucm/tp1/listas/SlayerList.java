@@ -85,4 +85,8 @@ public class SlayerList {
 		
 	}
 	
+	public String Icon(int i) {
+		return arraySlayer[i].representarS();
+	}
+	
 }

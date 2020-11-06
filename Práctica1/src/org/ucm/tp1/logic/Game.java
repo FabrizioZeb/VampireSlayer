@@ -149,6 +149,45 @@ public class Game {
 	}
 		
 	
+	//Coins Functions
+	
+	public int SlayerCost() {
+		return 50;
+	}
+	
+	public int CurrentCoins() {
+		return player.getMonedas();
+	}
+	
+	public void CoinsPostBuy(int i) {
+		player.setMonedas(player.getMonedas()-i);
+	}
+	
+	
+	//Level (enum) Funtions
+	
+	public int cols() {
+		return dificultad.getDim_x();
+	}
+	
+	public int rows() {
+		return dificultad.getDim_y();
+	}
+	
+	
+	
+	//Gameprinter Functions
+	
+	
+	public String GameprinterBoardXandY(int x, int y) {
+		return gameprinter.getBoard()[x][y];
+	}
+	
+	public void SetinBoard(int col, int row, String icon) {
+		gameprinter.setinBoard(col, row, icon);
+	}
+	
+	
 	//Gameob Functions
 	
 	public int GameobGetsXorYofVorS(int i, boolean xory, boolean sorv) {
