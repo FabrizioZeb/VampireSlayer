@@ -12,7 +12,7 @@ public class GameObjectBoard {
 
 	
 	public GameObjectBoard(Game game) {
-		this.slayerlists = new SlayerList();
+		this.slayerlists = new SlayerList(game);
 		this.vampirelists = new VampireList(game);
 		this.game = game;
 	}
@@ -138,15 +138,12 @@ public class GameObjectBoard {
 	}
 	
 	public void Slayersfire() {
-		for(int i = 0; i < slayerlists.getNumS(); i++) {
-			slayerlists.getLista()[i].attack();
-		}
+		slayerlists.Attack();
 	}
 	
 	public void Vampiresbite() {
-		for(int i = 0; i < vampirelists.getNumV(); i++) {
-			vampirelists.getLista()[i].attack();
-		}
+		vampirelists.Attack();
+		//for(int i = 0; i < vampirelists.getNumV(); i++) {		vampirelists.getLista()[i].attack();		}
 	}
 
 	public VampireList getVampirelists() {
@@ -183,7 +180,7 @@ public class GameObjectBoard {
 
 	public void ResetGame() {
 		this.vampirelists = new VampireList(game);
-		this.slayerlists = new SlayerList();
+		this.slayerlists = new SlayerList(game);
 		game.ResetPlayer();
 		game.ResetNumCiclos();
 		
@@ -194,7 +191,13 @@ public class GameObjectBoard {
 		return game.getGameprinter().toString();
 	}
 	
-
+	public String Stats() {
+		String s = "Number of cycles: " + game.getnumCiclos() + "\n";
+		s += "Coins: " + game.CurrentCoins() + "\n";
+		s += "Remainings vampires: " + vampirelists.getRemainingV() + "\n";
+		s += "Vampires on the board: " + vampirelists.getNumV() + "\n";
+		return s;
+	}
 	
 	
 	public int TakeVPos(int i, boolean xory) {
@@ -216,6 +219,10 @@ public class GameObjectBoard {
 		vampirelists.RecibirDaño(i,(vampirelists.VidaActual(i)-dmg));
 	}
 	
+	public int RemainingV() {
+		return vampirelists.getRemainingV();
+	}
+	
 	public int GetNumV() {
 		return vampirelists.getNumV();
 	}
@@ -223,6 +230,16 @@ public class GameObjectBoard {
 	public int GetNumS() {
 		return slayerlists.getNumS();
 	}
+	
+	public void IncreaseCicles() {
+		for (int i = 0; i < vampirelists.getNumV(); i++) {
+			vampirelists.IncreaseCiclos(i);
+		}
+		for (int i = 0; i < slayerlists.getNumS(); i++) {
+			slayerlists.IncreaseCiclos(i);
+		}
+	}
+
 
 	
 }

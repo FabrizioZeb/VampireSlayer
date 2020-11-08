@@ -31,7 +31,7 @@ public class Game {
 	}
 	
 	public int MaxCant() {
-		return getDificultad().getDim_x() * getDificultad().getDim_y();
+		return dificultad.getDim_x() * dificultad.getDim_y();
 	}
 	
 
@@ -51,12 +51,8 @@ public class Game {
 			
 	}
 	
-	public String draw() {
-		String s = "Number of cycles: " + getnumCiclos() + "\n";
-		s += "Coins: " + getMonedas() + "\n";
-		s += "Remainings vampires: " + gameob.getVampirelists().getRemainingV() + "\n";
-		s += "Vampires on the board: " + gameob.getVampirelists().getNumV() + "\n";
-		return s;
+	public String pintar() {
+		return gameob.Stats() + gameob.gameprint();
 	}
 	
 	public String gameprint() {
@@ -74,8 +70,7 @@ public class Game {
 		
 		//add slayer poner cordenadas.
 		public void addSlayerByUser(int x, int y) {
-			Slayer sl = new Slayer(this,x,y);
-			addSlayer(sl);
+			addSlayer(new Slayer(this,x,y));
 		}
 		
 		public void fire() {
@@ -92,29 +87,26 @@ public class Game {
 		gameob.moveV();
 	}
 	
-	public void update() {
-		setNumciclos(getNumciclos()+1);
-		player.aumentar10monedas();
-		for(int i = 0; i < gameob.getVampirelists().getNumV(); i++) {
-			gameob.getVampirelists().getLista()[i].setCiclos(gameob.getVampirelists().getLista()[i].getCiclos()+1);
-		}
-		for(int i = 0; i < gameob.getSlayerlists().getNumS(); i++) {
-			gameob.getSlayerlists().getLista()[i].setCiclos(gameob.getSlayerlists().getLista()[i].getCiclos()+1);
-		}
-	}
 	
+	
+	public void update() {
+		setNumciclos(this.numciclos+1);
+		player.aumentar10monedas();
+		gameob.IncreaseCicles();
+		
+	}
 	
 	//ADD VAMPIRES
 	
 	public boolean shouldAddVampire() {
-		return (gameob.getVampirelists().getRemainingV() > 0 && rand.nextDouble() < dificultad.getVampireFrequency());
+		return (gameob.RemainingV() > 0 && rand.nextDouble() < dificultad.getVampireFrequency());
 	}
 		
 	public void addVampire() {
 		Vampire vm = new Vampire(this,0, 0);
 		gameob.addVampire(vm);
 	}
-	
+
 	//REMOVE DEAD OBJECTS
 	
 	public void RemoveCorpses() {

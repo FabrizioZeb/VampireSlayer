@@ -1,7 +1,6 @@
 package org.ucm.tp1.control;
 
 import java.util.Scanner;
-import org.ucm.tp1.view.GamePrinter;
 import org.ucm.tp1.logic.Game;
 
 public class Controller {
@@ -23,7 +22,6 @@ public class Controller {
     private Game game;
     private Scanner scanner;
     private boolean nextstep;
-    private GamePrinter gameprinter;
     
     public Controller(Game game, Scanner scanner) {
 	    this.game = game;
@@ -32,8 +30,7 @@ public class Controller {
     }
     
     public void pinta() {
-    	System.out.println(game.draw());
-    	System.out.println(game.getGameob().gameprint());
+    	System.out.println(game.pintar());
     }
     
     public void  printGame() {
@@ -67,7 +64,8 @@ public class Controller {
     		}
     		
     	}
-    	//sc.close();
+    	System.out.println("[DEBUG] GAME OVER");
+    	sc.close();
     }
 
 	private void AskUserInstruction(Scanner sc) {
@@ -89,8 +87,10 @@ public class Controller {
 				validInstruction = true;
 			}
 			else if("r".equals(instructions[0]) || "reset".equals(instructions[0])) {
+				game.Reset();
 				System.out.println("Reset");
 				validInstruction = true;
+				nextstep = false;
 			}
 			else if("a".equals(instructions[0]) || "add".equals(instructions[0])) {
 				if(instructions.length > 2) {

@@ -7,11 +7,13 @@ public class SlayerList {
 	
 	private Slayer arraySlayer[];
 	private int numS;
+	private Game game;
 	
-	public SlayerList() {
+	public SlayerList(Game game) {
 		super();
-		arraySlayer = new Slayer[28];
+		arraySlayer = new Slayer[game.MaxCant()];
 		this.numS = 0;
+		this.game = game;
 	}
 	
 
@@ -87,6 +89,17 @@ public class SlayerList {
 	
 	public String Icon(int i) {
 		return arraySlayer[i].representarS();
+	}
+
+
+	public void IncreaseCiclos(int i) {
+		arraySlayer[i].setCiclos(arraySlayer[i].getCiclos()+1);
+		
+	}
+	
+	public void Attack() {
+		for(int i = 0; i < this.numS; i++) arraySlayer[i].attack(); 
+		
 	}
 	
 }

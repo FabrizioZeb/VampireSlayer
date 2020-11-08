@@ -99,4 +99,14 @@ public class VampireList {
 	public int CiclesOfV(int i) {
 		return arrayVampiros[i].getCiclos();
 	}
+
+	public void IncreaseCiclos(int i) {
+		arrayVampiros[i].setCiclos(arrayVampiros[i].getCiclos()+1);
+		
+	}
+	
+	public void Attack() {
+		for(int i = 0; i < this.numV; i++) arrayVampiros[i].attack();
+	}
 }
+
