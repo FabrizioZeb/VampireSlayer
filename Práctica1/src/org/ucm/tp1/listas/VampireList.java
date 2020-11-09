@@ -39,7 +39,7 @@ public class VampireList {
 		}
 	}
 	
-	public boolean isMuerto(int i) {
+	private boolean isMuerto(int i) {
 		if(arrayVampiros[i].getResistencia() < 0) return true;
 		else return false;
 	}
@@ -71,42 +71,22 @@ public class VampireList {
 			}
 		}
 	}
-	
-	public int TakePosXofVampireI(int i) {
-		return arrayVampiros[i].getX();
-	}
-	
-	public int TakePosYofVampireI(int i) {
-		return arrayVampiros[i].getY();
-	}
-	
-	public void MoveVto(int i, int nextpos) {
-		arrayVampiros[i].setY(nextpos);
-	}
+
+
 	
 	public void RecibirDaño(int i,int nexthp) {
-		arrayVampiros[i].setResistencia(nexthp);
+		arrayVampiros[i].setResistencia(arrayVampiros[i].getResistencia() - nexthp);
 	}
 	
-	public int VidaActual(int i) {
-		return arrayVampiros[i].getResistencia();
-	}
 
-	public String Icon(int i) {
-		return arrayVampiros[i].representarV();
-	}
-	
-	public int CiclesOfV(int i) {
-		return arrayVampiros[i].getCiclos();
-	}
 
-	public void IncreaseCiclos(int i) {
-		arrayVampiros[i].setCiclos(arrayVampiros[i].getCiclos()+1);
+	public void IncreaseCiclos() {
+		for(int i = 0; i < this.numV; i++) arrayVampiros[i].setCiclos(arrayVampiros[i].getCiclos()+1);
 		
 	}
 	
 	public void Attack() {
-		for(int i = 0; i < this.numV; i++) game.attackSlayer(arrayVampiros[i].getX(),arrayVampiros[i].getY());
+		for(int i = 0; i < this.numV; i++) arrayVampiros[i].attack();
 	}
 	
 	
@@ -125,10 +105,37 @@ public class VampireList {
 	}
 	
 	
+	public boolean vmVisible(int x, int y, int i) {
+		return (x == this.arrayVampiros[i].getX() && y < this.arrayVampiros[i].getY());
+	}
 	
 	
+	public boolean shouldAddVampire() {
+		return ( this.remainingV > 0 && game.CorrectVmFrec());
+	}
+		
 	
+	public void moveV() {
+		for(int i = 0; i < this.numV; i++) {
+			int nextpos = arrayVampiros[i].getY() - 1;
+			if(game.position(arrayVampiros[i].getX(),nextpos) == " ")
+				if(arrayVampiros[i].getCiclos() % 2 == 0)
+					arrayVampiros[i].setY(nextpos);
+		}
+	}
 	
+	public String getVampirein(int x,int y) {
+		int i = 0;
+		boolean enc = false;
+		while(i < this.numV && !enc) {
+			if(arrayVampiros[i].getX() == x && arrayVampiros[i].getY() == y) {
+				enc = true;
+				return arrayVampiros[i].representarV();				
+			}
+			i++;
+		}
+		return " ";
+	}
 	
 }
 

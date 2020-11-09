@@ -24,7 +24,7 @@ public class Player {
 		if(game.getRand().nextFloat() > 0.5) this.monedas += 10;	
 	}
 	
-	public void ResetMonedas() {
-		monedas = 50;
+	public void buyAt(int i) {
+		monedas -= i;
 	}
 }

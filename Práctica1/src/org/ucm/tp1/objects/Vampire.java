@@ -8,12 +8,11 @@ public class Vampire {
 	private int resistencia;
 	private int dmg;
 	private int posx, posy;
-	private int velocidad;
 	private int ciclos;
 	private boolean vivo;
 	private boolean avanza;
 	private Game game;
-	private boolean objetivo;
+
 	
 	//Construye un nuevo zombie, por lo que ciclos = 0 y 
 	public Vampire (Game game,int x, int y) {
@@ -21,14 +20,13 @@ public class Vampire {
 		this.dmg = 1;
 		this.posx = x;
 		this.posy = y;
-		this.velocidad = 1;
 		this.ciclos = 0;
 		this.vivo = true;
 		this.game = game;
-		this.objetivo = true;
 	}
 		
 	public void attack() {
+		if(this.resistencia > 0)
 		game.attackSlayer(posx, posy);
 	}
 	

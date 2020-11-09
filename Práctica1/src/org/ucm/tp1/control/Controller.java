@@ -6,8 +6,8 @@ import org.ucm.tp1.logic.Game;
 public class Controller {
 
 
-	public final String prompt = "Command > ";
-	public static final String helpMsg = String.format(
+	private final String prompt = "Command > ";
+	private static final String helpMsg = String.format(
 			"Available commands:%n" +
 			"[a]dd <x> <y>: add a slayer in position x, y%n" +
 			"[h]elp: show this help%n" + 
@@ -15,9 +15,9 @@ public class Controller {
 			"[e]xit: exit game%n"+ 
 			"[n]one | []: update%n");
 	
-	public static final String unknownCommandMsg = String.format("Unknown command");
-	public static final String invalidCommandMsg = String.format("Invalid command");
-	public static final String invalidPositionMsg = String.format("Invalid position");
+	private static final String unknownCommandMsg = String.format("Unknown command");
+	private static final String invalidCommandMsg = String.format("Invalid command");
+	private static final String invalidPositionMsg = String.format("Invalid position");
 
     private Game game;
     private Scanner scanner;
@@ -29,13 +29,9 @@ public class Controller {
 	    nextstep = false;
     }
     
-    public void pinta() {
+    private void pinta() {
     	System.out.println(game.pintar());
     }
-    
-    public void  printGame() {
-   	 System.out.println(game);
-   }
     
     public void run() {
 		// TODO fill your code
@@ -53,10 +49,9 @@ public class Controller {
     			//move
     			game.moveVampires();
     			//attack
-    			game.getGameob().Vampiresbite();
-    			game.getGameob().Slayersfire();
+    			game.attack();
     			//add vampire
-    			game.addVampire();
+    			game.addVampire(game.ColsandRows(false),game.ColsandRows(true));
     			//retire corpses
     			game.RemoveCorpses();
     			//check if game has finished
@@ -96,10 +91,9 @@ public class Controller {
 				if(instructions.length == 3 ) {
 					int col = Integer.parseInt(instructions[1]);
 					int row = Integer.parseInt(instructions[2]);
-					if(col <= game.getDificultad().getDim_x() && row <= game.getDificultad().getDim_y()) {
+					if(col <= game.getDificultad().getDim_x() - 2 && row <= game.getDificultad().getDim_y()) {
 						game.addSlayerByUser(row,col);
 						validInstruction = true;
-						nextstep = false;
 					}
 					else System.out.println(invalidPositionMsg);
 				}

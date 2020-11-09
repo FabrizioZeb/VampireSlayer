@@ -4,18 +4,16 @@ import org.ucm.tp1.logic.Game;
 
 public class Slayer {
 
-	public static final int COSTE = 50;
+	private static final int COSTE = 50;
 	
 	private int resistencia;
 	private int dmg;
 	private int posx, posy;
 	private int ciclos;
 	private int coste;
-//	private int frecuencia;
 	private boolean vivo;
 	private boolean avanza;
 	private Game game;
-	private boolean objetivo; 
 
 	public Slayer(Game game,int x, int y) {
 		this.resistencia = 3;
@@ -24,14 +22,13 @@ public class Slayer {
 		this.posy = y;
 		this.coste = COSTE;
 		this.ciclos = 0;
-//		this.frecuencia = 1;
 		this.vivo = true;
 		this.game = game;
-		this.objetivo = false;
 	}
 
 	
 	public void attack() {
+		if(this.resistencia > 0)
 		game.attackVampire(posx, posy);
 	}
 
