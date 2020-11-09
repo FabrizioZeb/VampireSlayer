@@ -29,19 +29,7 @@ public class Vampire {
 	}
 		
 	public void attack() {
-		if(game.GameobNumVorNumS(objetivo) > 0) {
-			int i = 0; 
-			boolean target = false;
-			while(i < game.GameobNumVorNumS(objetivo) && !target) {
-				if(this.posx == game.GameobGetsXorYofVorS(i, false, objetivo) && (this.posy - 1 == game.GameobGetsXorYofVorS(i, true, objetivo))){
-					if(this.ciclos > 0) {
-						game.GameobVorSTakeDmg(i, dmg, objetivo);
-						target = true;
-					}
-				}
-				i++;
-			}
-		}
+		game.attackSlayer(posx, posy);
 	}
 	
 	public String representarV() {
@@ -87,6 +75,10 @@ public class Vampire {
 	
 	public void setCiclos(int ciclos){
 		this.ciclos = ciclos;
+	}
+
+	public int getDmg() {
+		return this.dmg;
 	}
 	
 

@@ -99,4 +99,37 @@ public class VampireList {
 	public int CiclesOfV(int i) {
 		return arrayVampiros[i].getCiclos();
 	}
+
+	public void IncreaseCiclos(int i) {
+		arrayVampiros[i].setCiclos(arrayVampiros[i].getCiclos()+1);
+		
+	}
+	
+	public void Attack() {
+		for(int i = 0; i < this.numV; i++) game.attackSlayer(arrayVampiros[i].getX(),arrayVampiros[i].getY());
+	}
+	
+	
+	public Vampire vmpInXY(int col, int row) {
+		Vampire v = null;
+		int i = 0;
+		boolean enc = false;
+		while(i < this.numV && !enc) {
+			if(arrayVampiros[i].getX() == col && arrayVampiros[i].getY()  == row) {
+				v = arrayVampiros[i];
+				enc = true;
+			}
+			i++;
+		}
+		return v;
+	}
+	
+	
+	
+	
+	
+	
+	
 }
+
+

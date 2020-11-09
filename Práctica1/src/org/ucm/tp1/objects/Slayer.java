@@ -32,19 +32,7 @@ public class Slayer {
 
 	
 	public void attack() {
-		if(game.GameobNumVorNumS(objetivo) > 0) {
-			int i = 0;
-			boolean target = false;
-			while(i < game.GameobNumVorNumS(objetivo) && !target) {
-				if(this.posx == game.GameobGetsXorYofVorS(i, false, objetivo ) && this.posy < game.GameobGetsXorYofVorS(i, true, objetivo)) {
-					if(this.ciclos > 0) {
-						game.GameobVorSTakeDmg(i, dmg, objetivo); //Si boolean es false se vampire recibe dmg
-						target = true;
-					}
-				}
-				i++;
-			}
-		}
+		game.attackVampire(posx, posy);
 	}
 
 
@@ -97,7 +85,9 @@ public class Slayer {
 		this.resistencia = i;
 	}
 	
-
+	public int getDmg() {
+		return this.dmg;
+	}
 
 
 }

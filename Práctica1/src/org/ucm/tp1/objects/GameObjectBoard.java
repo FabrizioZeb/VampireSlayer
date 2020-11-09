@@ -2,7 +2,8 @@ package org.ucm.tp1.objects;
 
 import org.ucm.tp1.listas.*;
 import org.ucm.tp1.logic.Game;
-import org.ucm.tp1.view.GamePrinter;
+
+
 
 public class GameObjectBoard {
 	
@@ -12,7 +13,7 @@ public class GameObjectBoard {
 
 	
 	public GameObjectBoard(Game game) {
-		this.slayerlists = new SlayerList();
+		this.slayerlists = new SlayerList(game);
 		this.vampirelists = new VampireList(game);
 		this.game = game;
 	}
@@ -105,29 +106,16 @@ public class GameObjectBoard {
 	public boolean GameOver() {
 		int i = 0;
 		while(i < game.rows() && !game.isPerdido()) {
-			if(vmpInXY(0,i) != null) {
+			if(vampirelists.vmpInXY(0,i) != null) {
 				game.setPerdido(true);
 				System.out.println("DEBUG [LOSE]");
-				game.setFinjuego(true);
 			}
 			i++;
 		}
 		return game.isPerdido();
 	}
 	
-	public Vampire vmpInXY(int col, int row) {
-		Vampire v = null;
-		int i = 0;
-		boolean enc = false;
-		while(i < vampirelists.getNumV() && !enc) {
-			if(vampirelists.TakePosXofVampireI(i) == col && vampirelists.TakePosYofVampireI(i) == row) {
-				v = vampirelists.getLista()[i];
-				enc = true;
-			}
-			i++;
-		}
-		return v;
-	}
+
 	
 	public boolean Victory() {
 		boolean victoria = false;
@@ -138,15 +126,11 @@ public class GameObjectBoard {
 	}
 	
 	public void Slayersfire() {
-		for(int i = 0; i < slayerlists.getNumS(); i++) {
-			slayerlists.getLista()[i].attack();
-		}
+		slayerlists.Attack();
 	}
 	
 	public void Vampiresbite() {
-		for(int i = 0; i < vampirelists.getNumV(); i++) {
-			vampirelists.getLista()[i].attack();
-		}
+		vampirelists.Attack();
 	}
 
 	public VampireList getVampirelists() {
@@ -183,7 +167,7 @@ public class GameObjectBoard {
 
 	public void ResetGame() {
 		this.vampirelists = new VampireList(game);
-		this.slayerlists = new SlayerList();
+		this.slayerlists = new SlayerList(game);
 		game.ResetPlayer();
 		game.ResetNumCiclos();
 		
@@ -194,7 +178,13 @@ public class GameObjectBoard {
 		return game.getGameprinter().toString();
 	}
 	
-
+	public String Stats() {
+		String s = "Number of cycles: " + game.getnumCiclos() + "\n";
+		s += "Coins: " + game.CurrentCoins() + "\n";
+		s += "Remainings vampires: " + vampirelists.getRemainingV() + "\n";
+		s += "Vampires on the board: " + vampirelists.getNumV() + "\n";
+		return s;
+	}
 	
 	
 	public int TakeVPos(int i, boolean xory) {
@@ -216,12 +206,63 @@ public class GameObjectBoard {
 		vampirelists.RecibirDaño(i,(vampirelists.VidaActual(i)-dmg));
 	}
 	
+	public int RemainingV() {
+		return vampirelists.getRemainingV();
+	}
+	
 	public int GetNumV() {
 		return vampirelists.getNumV();
 	}
 
 	public int GetNumS() {
 		return slayerlists.getNumS();
+	}
+	
+	public void IncreaseCicles() {
+		for (int i = 0; i < vampirelists.getNumV(); i++) {
+			vampirelists.IncreaseCiclos(i);
+		}
+		for (int i = 0; i < slayerlists.getNumS(); i++) {
+			slayerlists.IncreaseCiclos(i);
+		}
+	}
+
+	public void attackV(int row, int col) {
+		Slayer sl = slayerlists.slInXY(row, col);
+		if(vampirelists.getNumV() > 0) {
+			int i = 0;
+			boolean target = false;
+			while(i < vampirelists.getNumV() && !target) {
+				if(sl.getX() == vampirelists.getLista()[i].getX() && sl.getY() < vampirelists.getLista()[i].getY())
+					if(sl.getCiclos() > 0) {
+					VampireTakeDmg(i,sl.getDmg());
+					target = true;
+					}
+				i++;
+			}
+			
+			
+		}
+		
+	}
+	
+	
+	public void attackS(int row, int col) {
+		Vampire vm = vampirelists.vmpInXY(row, col);
+		if(slayerlists.getNumS() > 0) {
+				int i = 0;
+				boolean target = false;
+				while(i < slayerlists.getNumS() && !target) {
+					if(vm.getX() == slayerlists.getLista()[i].getX() && (vm.getY() - 1 == slayerlists.getLista()[i].getY())) {
+						if(vm.getCiclos() > 0) {
+							SlayerTakeDmg(i,vm.getDmg());
+							target = true;
+						}
+						
+					}
+					i++;
+				}
+		}
 	}
 
 	

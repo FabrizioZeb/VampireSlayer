@@ -1,17 +1,20 @@
 package org.ucm.tp1.listas;
 
 import org.ucm.tp1.objects.Slayer;
+import org.ucm.tp1.objects.Vampire;
 import org.ucm.tp1.logic.Game;
 
 public class SlayerList {
 	
 	private Slayer arraySlayer[];
 	private int numS;
+	private Game game;
 	
-	public SlayerList() {
+	public SlayerList(Game game) {
 		super();
-		arraySlayer = new Slayer[28];
+		arraySlayer = new Slayer[game.MaxCant()];
 		this.numS = 0;
+		this.game = game;
 	}
 	
 
@@ -88,5 +91,31 @@ public class SlayerList {
 	public String Icon(int i) {
 		return arraySlayer[i].representarS();
 	}
+
+
+	public void IncreaseCiclos(int i) {
+		arraySlayer[i].setCiclos(arraySlayer[i].getCiclos()+1);
+		
+	}
+	
+	public void Attack() {
+		for(int i = 0; i < this.numS; i++) game.attackVampire(arraySlayer[i].getX(),arraySlayer[i].getY());; 
+		
+	}
+
+	public Slayer slInXY(int col, int row) {
+		Slayer s = null;
+		int i = 0;
+		boolean enc = false;
+		while(i < this.numS && !enc) {
+			if(arraySlayer[i].getX() == col && arraySlayer[i].getY()  == row) {
+				s = arraySlayer[i];
+				enc = true;
+			}
+			i++;
+		}
+		return s;
+	}
+	
 	
 }
