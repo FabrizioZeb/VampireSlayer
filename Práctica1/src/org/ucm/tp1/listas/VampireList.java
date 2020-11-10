@@ -40,7 +40,7 @@ public class VampireList {
 	}
 	
 	private boolean isMuerto(int i) {
-		if(arrayVampiros[i].getResistencia() < 0) return true;
+		if(arrayVampiros[i].getResistencia() <= 0) return true;
 		else return false;
 	}
 	

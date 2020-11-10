@@ -116,7 +116,7 @@ public class GameObjectBoard {
 
 	
 	public String StatsofVampires() {
-		String s = "Remainings vampires: " + vampirelists.getRemainingV() + "\n";
+		String s = "Remaining vampires: " + vampirelists.getRemainingV() + "\n";
 		s += "Vampires on the board: " + vampirelists.getNumV() + "\n";
 		return s;
 	}

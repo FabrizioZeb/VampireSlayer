@@ -16,11 +16,13 @@ public class Game {
 	private int numciclos;
 	private boolean finjuego;
 	private boolean perdido;
+	private long seed;
 	
 	
 	public Game(long seed, Level level) {
 		super();
 		this.rand = new Random(seed);
+		this.seed = seed;
 		this.dificultad = level;
 		this.gameob = new GameObjectBoard(this); 		
 		this.gameprinter = new GamePrinter(this,dificultad.getDim_x(), dificultad.getDim_y());
@@ -70,6 +72,7 @@ public class Game {
 		//RESET
 		
 		public void Reset() {
+			this.rand = new Random(seed);
 			this.gameob = new GameObjectBoard(this);
 			this.player = new Player(this);
 			this.numciclos = 0;

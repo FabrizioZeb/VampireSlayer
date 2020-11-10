@@ -28,7 +28,7 @@ public class SlayerList {
 	}
 	
 	private boolean isMuerto(int i){
-		if(arraySlayer[i].getResistencia() < 0) return true;
+		if(arraySlayer[i].getResistencia() <= 0) return true;
 		else return false;
 	}
 	

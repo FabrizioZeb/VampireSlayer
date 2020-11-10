@@ -85,7 +85,6 @@ public class Controller {
 				game.Reset();
 				System.out.println("Reset");
 				validInstruction = true;
-				nextstep = false;
 			}
 			else if("a".equals(instructions[0]) || "add".equals(instructions[0])) {
 				if(instructions.length == 3 ) {
@@ -94,6 +93,8 @@ public class Controller {
 					if(col <= game.getDificultad().getDim_x() - 2 && row <= game.getDificultad().getDim_y()) {
 						game.addSlayerByUser(row,col);
 						validInstruction = true;
+						nextstep = false;
+						game.update();
 					}
 					else System.out.println(invalidPositionMsg);
 				}
@@ -102,7 +103,7 @@ public class Controller {
 				}
 				
 			}
-			else if("n".equals(instructions[0]) || "none".equals(instructions[0])) {
+			else if("n".equals(instructions[0]) || "none".equals(instructions[0]) || "".equals(instructions[0])) {
 				System.out.println("Siguiente turno");
 				validInstruction = true;
 				nextstep = false;
