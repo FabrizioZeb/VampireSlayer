@@ -11,10 +11,12 @@ import org.ucm.tp1.logic.gameobjects.slayers.Slayers;
 public class Game {
 
 
+
 	private Player player;
 	private GameObjectBoard gameob;
 	private GamePrinter gameprinter;
-	
+	private IPrintable IPrintable;
+
 	private Random rand;
 	private Level level;
 	private int numciclos;
@@ -86,14 +88,11 @@ public class Game {
 		//ADD SLAYER
 
 		public void addObject(int x,int y){
-			if(Empty(x,y))
-				gameob.addSlayer();
+			GameObject gameObject;
+			gameob.addObject(gameObject,x,y);
 
 		}
 
-		public void addSlayerByUser(int x, int y) {
-			gameob.addSlayer(new Slayers(this,x,y));
-		}
 		
 
 	//UPDATE

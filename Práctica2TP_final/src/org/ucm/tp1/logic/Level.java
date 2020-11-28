@@ -23,11 +23,11 @@ public enum Level {
 		return vampireFrequency;
 	}
 	
-	public int getDimX() {
+	public int getDim_x() {
 		return dim_x;
 	}
 
-	public int getDimY() {
+	public int getDim_y() {
 		return dim_y;
 	}
 	
@@ -44,4 +44,6 @@ public enum Level {
             allLevels += level.name() + separator;
         return allLevels.substring(0, allLevels.length() - separator.length());
     }
+
+
 }

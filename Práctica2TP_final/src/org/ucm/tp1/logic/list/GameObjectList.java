@@ -3,26 +3,28 @@ package org.ucm.tp1.logic.list;
 import org.ucm.tp1.logic.Game;
 import org.ucm.tp1.logic.gameobjects.GameObject;
 import org.ucm.tp1.logic.gameobjects.vampires.Vampires;
-import org.ucm.tp1.logic.gameobjects.slayers.Slayers;
+
 
 import java.util.ArrayList;
 
 public class GameObjectList {
 
     private ArrayList<GameObject> list;
-    private Slayers Slayer;
-    private Vampires Vampire;
-    private Game game;
+    protected Vampires Vampire;
+    protected Game game;
 
 
     public GameObjectList(){
         list = new ArrayList<GameObject>();
     }
 
-    public void addObject(GameObject object){
-        list.add(object);
+    public void addObject(GameObject object,int x,int y){
+        if(game.Empty(x,y)) list.add(object);
     }
 
+    public int getCycles(int i) {
+        return list.get(i).getCycles();
+    }
     public boolean isDead(int i){
         return !list.get(i).isAlive();
     }
@@ -42,8 +44,7 @@ public class GameObjectList {
         int i = 0;
         while(i < list.size()){
             if(list.get(i).getX() == x && list.get(i).getY() == y){
-                if(list.get(i) == Slayer) return list.get(i);
-                else if(list.get(i) == Vampire) return list.get(i);
+                return list.get(i);
             }
             i++;
         }

@@ -21,10 +21,12 @@ public class VampireList extends GameObjectList {
 		return super.getList();
 	}
 
-	public void add(Vampires v){
+
+	public void addVampire(Vampires vampire,int x, int y){
 		if(Vampires.getRemainingVampires() > 0) {
-			super.addObject(v);
-			Vampires.setRemainingVampires(getRemainingV()-1);
+			super.addObject(vampire,x,y);
+			Vampires.reduceRemainingVampires();
+			Vampires.addVampiresOnBoard();
 		}
 	}
 	
@@ -51,7 +53,6 @@ public class VampireList extends GameObjectList {
 
 	public void IncreaseCiclos() {
 		for(int i = 0; i < this.numV; i++) arrayVampiros[i].setCiclos(arrayVampiros[i].getCiclos()+1);
-		
 	}
 	
 	public void Attack() {
@@ -59,21 +60,7 @@ public class VampireList extends GameObjectList {
 	}
 	
 	
-	public Vampire vmpInXY(int col, int row) {
-		Vampire v = null;
-		int i = 0;
-		boolean enc = false;
-		while(i < this.numV && !enc) {
-			if(arrayVampiros[i].getX() == col && arrayVampiros[i].getY()  == row) {
-				v = arrayVampiros[i];
-				enc = true;
-			}
-			i++;
-		}
-		return v;
-	}
-	
-	
+
 	public boolean vmVisible(int x, int y, int i) {
 		return (x == this.arrayVampiros[i].getX() && y < this.arrayVampiros[i].getY());
 	}
@@ -85,11 +72,10 @@ public class VampireList extends GameObjectList {
 		
 	
 	public void moveV() {
-		for(int i = 0; i < this.numV; i++) {
-			int nextpos = arrayVampiros[i].getY() - 1;
-			if(game.position(arrayVampiros[i].getX(),nextpos))
-				if(arrayVampiros[i].getCiclos() % 2 == 0)
-					arrayVampiros[i].setY(nextpos);
+		for(int i = 0; i < getList().size(); i++) {
+			int nextpos = getList().get(i).getY() - 1;
+			if (game.position(getList().get(i).getX(), getList().get(i).getY()) == Vampire && game.position(getList().get(i).getX(), nextpos) == null && getList().get(i).getCycles() % 2 == 0)
+				getList().get(i).setY(nextpos);
 		}
 	}
 	

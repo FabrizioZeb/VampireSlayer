@@ -11,7 +11,7 @@ public class Vampire extends Vampires{
     public Vampire(int x, int y){
         super(x,y);
         this.dmg = DMG;
-        this.resistance = 3;
+        this.resistance = 5;
         this.cycles = 0;
         this.alive = true;
         this.move = false;
@@ -100,6 +100,10 @@ public class Vampire extends Vampires{
 
     public boolean isMove(){
         return this.move;
+    }
+
+    public void setMove(boolean move) {
+        this.move = move;
     }
 
     public void Move(){

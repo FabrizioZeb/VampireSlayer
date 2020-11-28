@@ -1,46 +1,44 @@
 package org.ucm.tp1.logic.list;
 
 import org.ucm.tp1.logic.gameobjects.slayers.Slayers;
-import org.ucm.tp1.objects.Vampire;
 import org.ucm.tp1.logic.Game;
 
 public class SlayerList extends GameObjectList {
 
+	Slayers slayer;
+
 	public SlayerList() {
 		super();
 	}
-	
 
-	public void addSlayer(Slayers sl){
-		super.addObject(sl);
+
+	public void addSlayer(Slayers slayer, int x, int y){
+		if(game.Buyable(slayer)) super.addObject(slayer,x,y);
 	}
+
 
 	public boolean isDead(int i){
-		if(super.) return true;
-		else return false;
+		return super.isDead(i);
 	}
 
-	//	Si se muere un slayer sitúa todos los slayer una posición menos desde el slayer i y resta 1 a numS
-	
-	private void array(int i){
-		for(int j = i; j < this.numS; j++) {
-			arraySlayer[j] = arraySlayer[j+1];
-		}
-		setNumS(getNumS()-1);
+
+	public void array(int i){
+		super.array(i);
 	}
 	
 	
 	
 	public void update(Game game) {
-		for(int i = 0; i < this.numS; i++) { 
-			if(isMuerto(i)) {
-				arraySlayer[i] = null;
+		for(int i = 0; i < super.getList().size(); i++) {
+			if(isDead(i)) {
 				array(i);
 			}
 		}
 	}
 
-
+	public boolean checkifSlayer(int i){
+		return getList().get(i) == slayer;
+	}
 
 	public void RecibirDmg(int i, int nexthp) {
 		arraySlayer[i].setResistencia(arraySlayer[i].getResistencia()-nexthp);

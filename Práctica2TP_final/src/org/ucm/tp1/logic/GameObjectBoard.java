@@ -28,7 +28,11 @@ public class GameObjectBoard {
 		return (gameObjectList.getObjectInPos(x,y) != null);
 	}
 
-		
+
+	public void addObject(GameObject object, int x, int y){
+		gameObjectList.addObject(object,x,y);
+	}
+
 	public void addSlayer(Slayer sl) {
 		if(game.Buyable(sl) && game.Empty(sl.getX(), sl.getY())) {
 			game.Bought(sl);
@@ -76,7 +80,6 @@ public class GameObjectBoard {
 	
 	public void RemoveDeadObjs() {
 		gameObjectList.getList().update(Game game);
-
 	}
 	
 	public void IncreaseCicles() {

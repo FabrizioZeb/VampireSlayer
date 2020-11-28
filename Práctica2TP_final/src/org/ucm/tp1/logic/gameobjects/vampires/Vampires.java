@@ -2,14 +2,13 @@ package org.ucm.tp1.logic.gameobjects.vampires;
 
 import org.ucm.tp1.logic.Game;
 import org.ucm.tp1.logic.gameobjects.GameObject;
-import org.ucm.tp1.logic.list.SlayerList;
 import org.ucm.tp1.logic.list.VampireList;
-import org.ucm.tp1.logic.gameobjects.IAttack;
 
 
 public abstract class Vampires extends GameObject {
 
-	private static int REMAINING_VAMPIRES;
+	private static int vampiresOnBoard;
+	private static int remainingVampires;
 
 	protected int dmg;
 	protected int resistance;
@@ -19,17 +18,33 @@ public abstract class Vampires extends GameObject {
 	protected String vampireType;
 	protected String objectLetters;
 
-	//Construye un nuevo slayer, por lo que cyclos = 0
-	public Vampires(int x, int y) {
-		super(x,y);
-	}
-
+//Remaining Vampires and Vampires on Board control:
 	public static int getRemainingVampires() {
-		return REMAINING_VAMPIRES;
-	}
+	return remainingVampires;
+}
 
 	public static void setRemainingVampires(int remainingVampires) {
-		REMAINING_VAMPIRES = remainingVampires;
+		Vampires.remainingVampires = remainingVampires;
+	}
+
+	public static int getVampiresOnBoard() {
+		return vampiresOnBoard;
+	}
+
+	public static void setVampiresOnBoard(int vampiresOnBoard) {
+		Vampires.vampiresOnBoard = vampiresOnBoard;
+	}
+
+	public static void reduceRemainingVampires() {
+		setRemainingVampires(remainingVampires-1);
+	}
+
+	public static void addVampiresOnBoard() {
+		setVampiresOnBoard(vampiresOnBoard+1);
+	}
+
+	public Vampires(int x, int y) {
+		super(x,y);
 	}
 
 	public boolean isMove(VampireList list){

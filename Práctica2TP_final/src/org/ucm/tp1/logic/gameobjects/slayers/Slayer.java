@@ -11,7 +11,7 @@ public class Slayer extends Slayers {
     public Slayer(int x, int y){
         super(x,y);
         this.dmg = DMG;
-        this.resistance = 5;
+        this.resistance = 3;
         this.cost = 50;
         this.cycles = 0;
         this.alive = true;

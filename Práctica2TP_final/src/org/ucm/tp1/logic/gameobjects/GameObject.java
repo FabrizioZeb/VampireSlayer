@@ -16,9 +16,6 @@ public abstract class GameObject {
         this.lists = new GameObjectList();
     }
 
-
-
-
     public abstract int getX();
 
     public abstract int getY();
@@ -28,6 +25,8 @@ public abstract class GameObject {
     public abstract void setX(int x);
 
     public abstract boolean isAlive();
+
+    public abstract int getCycles();
 
     public GameObjectList getLists() {
         return lists;
