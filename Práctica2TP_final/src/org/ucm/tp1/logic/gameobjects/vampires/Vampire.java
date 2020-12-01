@@ -3,7 +3,7 @@ package org.ucm.tp1.logic.gameobjects.vampires;
 import org.ucm.tp1.logic.Game;
 import org.ucm.tp1.logic.gameobjects.IAttack;
 
-public class Vampire extends Vampires{
+public class Vampire extends Vampires implements IAttack{
 
     private static final int DMG = 1;
     private static Game game;
@@ -109,6 +109,15 @@ public class Vampire extends Vampires{
     public void Move(){
         if(game.Empty(getX()-1,getY()) && getCycles() % 2 == 0) this.move = true;
         else this.move = false;
+    }
+    
+//Recibe el daño (nuevo)    
+    public boolean receiveSlayerAttack(int damage) {
+    	if(this.alive) {
+    		this.resistance -= damage;
+    		return true;
+    	}
+    	else return false;
     }
 
 

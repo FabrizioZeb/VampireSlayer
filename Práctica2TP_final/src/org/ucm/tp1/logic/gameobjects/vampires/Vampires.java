@@ -69,6 +69,8 @@ public abstract class Vampires extends GameObject {
 	public abstract boolean isMove();
 	public abstract void setMove(boolean move);
 	public abstract void attack();
+	
+	
 
 
 
