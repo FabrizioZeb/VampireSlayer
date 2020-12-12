@@ -12,11 +12,11 @@ public class Player {
 		this.game = game;
 	}
 	
-	public int getMonedas() {
+	public int setCoins() {
 		return monedas;
 	}
 	
-	public void setMonedas(int i) {
+	public void setCoins(int i) {
 		this.monedas = i;
 	}
 	

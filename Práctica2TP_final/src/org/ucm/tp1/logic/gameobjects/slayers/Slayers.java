@@ -20,11 +20,6 @@ public abstract class Slayers extends GameObject {
 		super(x,y);
 	}
 
-/*	public void attack() {
-		if(this.resistance > 0)
-
-	}*/
-
 	public abstract int getResistance();
 	public abstract void setResistance(int resistance);
 	public abstract int getCycles();

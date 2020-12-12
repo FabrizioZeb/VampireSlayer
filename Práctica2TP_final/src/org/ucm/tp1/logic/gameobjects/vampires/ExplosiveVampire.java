@@ -3,17 +3,14 @@ package org.ucm.tp1.logic.gameobjects.vampires;
 import org.ucm.tp1.logic.Game;
 import org.ucm.tp1.logic.gameobjects.IAttack;
 
-public class Vampire{
+public class ExplosiveVampire extends Vampires {
 
     private static final int DMG = 1;
+    private static final int EXPLOSIONDMG = 1;
     private static Game game;
-    protected int dmg;
-    protected int resistance;
-    protected int cycles;
-    protected boolean alive;
-    protected boolean move;
 
-    public Vampire(int x, int y){
+
+    public ExplosiveVampire(int x, int y){
         super(x,y);
         this.dmg = DMG;
         this.resistance = 5;
@@ -61,11 +58,6 @@ public class Vampire{
         return false;
     }
 
-    @Override
-    public boolean receiveExplosionDmg(int damage) {
-        return false;
-    }
-
 
     @Override
     public void attack(){
@@ -75,10 +67,6 @@ public class Vampire{
         }
     }
 
-
-
-
-
     public boolean isAlive() {
         return this.resistance > 0;
     }
@@ -86,7 +74,7 @@ public class Vampire{
 //Representation
 
     public String representV() {
-        return "V["+this.resistance+"]";
+        return "EV["+this.resistance+"]";
     }
 
 
@@ -148,6 +136,19 @@ public class Vampire{
     public void Move(){
         if(game.Empty(getX()-1,getY()) && getCycles() % 2 == 0) this.move = true;
         else this.move = false;
+    }
+
+//Explode
+
+    public void explode(){
+        if(getResistance() == 0){
+            for(int i = x-1; i <= x + 1; i++){
+                for(int j = y-1; j <= y+1; j++){
+                    IAttack other = game.getAttackableInPosition(i,j);
+                    if(other != null) other.receiveExplosionDmg(DMG);
+                }
+            }
+        }
     }
 
 

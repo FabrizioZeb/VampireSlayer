@@ -13,13 +13,12 @@ public class GameObjectList {
     protected Vampires Vampire;
     protected Game game;
 
-
     public GameObjectList(){
         list = new ArrayList<GameObject>();
     }
 
-    public void addObject(GameObject object,int x,int y){
-        if(game.Empty(x,y)) list.add(object);
+    public void addObject(GameObject object){
+        list.add(object);
     }
 
     public int getCycles(int i) {
@@ -54,4 +53,5 @@ public class GameObjectList {
     public ArrayList<GameObject> getList() {
         return list;
     }
+
 }

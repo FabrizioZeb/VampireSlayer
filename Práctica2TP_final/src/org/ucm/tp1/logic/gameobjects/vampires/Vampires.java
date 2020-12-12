@@ -2,7 +2,6 @@ package org.ucm.tp1.logic.gameobjects.vampires;
 
 import org.ucm.tp1.logic.Game;
 import org.ucm.tp1.logic.gameobjects.GameObject;
-import org.ucm.tp1.logic.list.VampireList;
 
 
 public abstract class Vampires extends GameObject {
@@ -47,17 +46,6 @@ public abstract class Vampires extends GameObject {
 		super(x,y);
 	}
 
-	public boolean isMove(VampireList list){
-		if(this.x-1 >= 0 && getCycles() % 2 == 0 && getCycles() > 1) setMove(true);
-		else setMove(false);
-		return isMove();
-	}
-
-	public boolean VampireIn(int x,int y, Game game, int cycles){
-		if(!(game.position(x,y) == this) && game.position(x, y) != null) return false;
-		else return false;
-	}
-
 	public abstract int getResistance();
 	public abstract void setResistance(int resistance);
 	public abstract int getCycles();
@@ -69,8 +57,6 @@ public abstract class Vampires extends GameObject {
 	public abstract boolean isMove();
 	public abstract void setMove(boolean move);
 	public abstract void attack();
-	
-	
 
 
 

@@ -3,7 +3,7 @@ package org.ucm.tp1.logic.gameobjects.slayers;
 import org.ucm.tp1.logic.Game;
 import org.ucm.tp1.logic.gameobjects.IAttack;
 
-public class Slayer extends Slayers implements IAttack{
+public class Slayer extends Slayers {
 
     private static final int DMG = 1;
     private static Game game;
@@ -23,8 +23,35 @@ public class Slayer extends Slayers implements IAttack{
 
     @Override
     public void update(Game game) {
-
     }
+
+    public boolean receiveSlayerAttack(int damage) {
+        return false;
+    }
+
+    public boolean receiveVampireAttack(int damage) {
+        this.resistance = this.resistance - damage;
+        return true;
+    }
+
+    public boolean receiveLightFlash() {
+        return false;
+    }
+
+    public boolean receiveGarlicPush() {
+        return false;
+    }
+
+    public boolean receiveDraculaAttack() {
+        setResistance(0);
+        return true;
+    }
+
+
+    public boolean receiveExplosionDmg(int damage) {
+        return false;
+    }
+
 
     @Override
     public void attack() {
@@ -34,10 +61,6 @@ public class Slayer extends Slayers implements IAttack{
                 other.receiveSlayerAttack(dmg);
         }
     }
-
-/*  public String toString() {
-        return null;
-    }*/
 
 
 //Representation
@@ -94,15 +117,6 @@ public class Slayer extends Slayers implements IAttack{
     @Override
     public int getCost() {
         return this.cost;
-    }
-    
-//Recibe el daño (nuevo)
-    public boolean receiveVampireAttack(int damage) {
-    	if(this.alive) {
-    		this.resistance -= damage;
-    		return true;
-    	}
-    	else return false;
     }
 
 

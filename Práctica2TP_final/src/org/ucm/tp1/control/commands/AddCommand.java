@@ -9,7 +9,7 @@ public class AddCommand extends NoPCommand {
 
     @Override
     public boolean execute(Game game) {
-        return false;
+        return true;
     }
 
     @Override

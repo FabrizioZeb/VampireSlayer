@@ -1,17 +1,16 @@
 package org.ucm.tp1.view;
 
-
 import org.ucm.tp1.utils.MyStringUtils;
 
 public class GamePrinter {
-	// view.printable añadido
-	view.IPrintable printable;
+	
+	IPrintable printable;
 	int numRows; 
 	int numCols;
 	String[][] board;
 	final String space = " ";
 	
-	public GamePrinter (view.IPrintable printable, int cols, int rows) {
+	public GamePrinter (IPrintable printable, int cols, int rows) {
 		this.printable = printable;
 		this.numRows = rows;
 		this.numCols = cols;	

@@ -35,7 +35,7 @@ public class Controller {
 			  String s = scanner.nextLine();
 			  String[] parameters = s.toLowerCase().trim().split(" ");
 			  System.out.println("[DEBUG] Executing: " + s);
-		      Command command = CommandGenerator.parse(parameters);
+		      Command command = CommandGenerator.parseCommand(parameters);
 		      if (command != null) { 
 		    	  		refreshDisplay = command.execute(game);
 		       } 
