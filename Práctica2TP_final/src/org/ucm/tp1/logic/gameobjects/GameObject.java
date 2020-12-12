@@ -13,6 +13,8 @@ public abstract class GameObject implements IAttack{
         this.y = y;
     }
 
+    public abstract int getCost();
+
     public abstract int getX();
 
     public abstract int getY();
@@ -29,9 +31,14 @@ public abstract class GameObject implements IAttack{
 
     public abstract int getCycles();
 
+    public abstract void move();
+
     public abstract void update(Game game);
 
-    //IAttack interface:
+    public abstract String getIcon();
+
+    //IAttack interface start:
+    public abstract void attack();
     public abstract boolean receiveSlayerAttack(int damage);
     public abstract boolean receiveVampireAttack(int damage);
     public abstract boolean receiveLightFlash();

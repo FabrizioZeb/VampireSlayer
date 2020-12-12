@@ -3,6 +3,7 @@ package org.ucm.tp1.logic;
 import java.util.EmptyStackException;
 import java.util.Random;
 
+import org.ucm.tp1.logic.gameobjects.GameObject;
 import org.ucm.tp1.logic.gameobjects.IAttack;
 import org.ucm.tp1.view.IPrintable;
 
@@ -29,19 +30,94 @@ public class Game implements IPrintable {
 		this.cycles = 0;
 	}
 
+	//add object:
+	public boolean Empty(int x, int y) {
+		return gameob.empty(x,y);
+	}
+
+
+
+	//draw
 
 	@Override
 	public String getPositionToString(int x, int y) {
-		return null;
+		return gameob.getPositionToString(x,y);
 	}
 
 	@Override
 	public String getInfo() {
-		return null;
+		return gameob.getInfo();
 	}
 
-	public boolean Empty(int x, int y) {
-		return gameob.empty(x,y);
+	//user action
+
+	public void reset(){
+		this.rand = new Random(seed);
+		this.gameob = new GameObjectBoard(this);
+		this.cycles = 0;
+	}
+
+	public void addSlayer(GameObject object, int x, int y){
+		gameob.addSlayer(x,y);
+	}
+
+
+	//update
+
+	public void update(){
+		gameob.update();
+	}
+
+	//attack
+
+	public void attack(){
+		gameob.attack();
+	}
+
+	//add vampires
+
+	public void addVampire(){
+		gameob.addVampire();
+	}
+
+	//remove dead objects
+
+	public void removeCorpses(){
+		gameob.removeDeadObjects();
+	}
+
+	//check end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public IAttack getAttackableInPosition(int x, int y) {
+		GameObject other = null;
+		if(gameob.getObjectInPos(x,y) != null)
+			other = gameob.getObjectInPos(x,y);
+		return other;
+	}
+
+	//Getters y setters:
+	//Coins
+	public int getCoins(){
+		return gameob.getCoins();
+	}
+
+	public void buy(int coins){
+		gameob.buy(coins);
 	}
 
 	public Level getLevel() {
@@ -55,24 +131,15 @@ public class Game implements IPrintable {
 	public int getDim_Y(){
 		return level.getDim_y();
 	}
-
-	//Getters y setters:
-
+	//Rand
 	public Random getRand() {
 		return rand;
 	}
-
-	public IAttack getAttackableInPosition(int x, int y) {
-		IAttack obj;
-		if(gameob.getObjectInPos(x,y) != null);
-	}
-	//Coins
-	public int getCoins(){
-		return gameob.getCoins();
+	//Cycles
+	public int getCycles() {
+		return this.cycles;
 	}
 
-	public void buy(int coins){
-		gameob.buy(coins);
-	}
+
 
 }

@@ -12,7 +12,7 @@ public class Player {
 		this.game = game;
 	}
 	
-	public int setCoins() {
+	public int getCoins() {
 		return monedas;
 	}
 	
@@ -23,6 +23,8 @@ public class Player {
 	public void aumentar10monedas() {
 		if(game.getRand().nextFloat() > 0.5) this.monedas += 10;	
 	}
+
+
 	
 	public void buyAt(int i) {
 		monedas -= i;

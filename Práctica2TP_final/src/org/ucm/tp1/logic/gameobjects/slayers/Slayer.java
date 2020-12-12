@@ -1,18 +1,25 @@
 package org.ucm.tp1.logic.gameobjects.slayers;
 
 import org.ucm.tp1.logic.Game;
+import org.ucm.tp1.logic.gameobjects.GameObject;
 import org.ucm.tp1.logic.gameobjects.IAttack;
 
-public class Slayer extends Slayers {
+public class Slayer extends GameObject {
 
     private static final int DMG = 1;
     private static Game game;
+    private int dmg;
+    private int resistance;
+    private final int COST = 50;
+    private int cost;
+    private int cycles;
+    private boolean alive;
 
     public Slayer(int x, int y){
         super(x,y);
         this.dmg = DMG;
+        this.cost = COST;
         this.resistance = 3;
-        this.cost = 50;
         this.cycles = 0;
         this.alive = true;
     }
@@ -65,7 +72,7 @@ public class Slayer extends Slayers {
 
 //Representation
 
-    public String representS(){
+    public String getIcon(){
         return "S[" + this.resistance +"]";
     }
 
@@ -80,7 +87,7 @@ public class Slayer extends Slayers {
     }
 
 //Coordinates
-    @Override
+
     public void setPos(int x, int y) {
         this.x = x;
         this.y = y;
@@ -114,9 +121,14 @@ public class Slayer extends Slayers {
 
 
 //Cost
-    @Override
+
     public int getCost() {
         return this.cost;
+    }
+
+//Move
+    public void move(){
+
     }
 
 

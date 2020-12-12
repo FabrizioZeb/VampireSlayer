@@ -2,7 +2,7 @@ package org.ucm.tp1.logic.list;
 
 import org.ucm.tp1.logic.Game;
 import org.ucm.tp1.logic.gameobjects.GameObject;
-import org.ucm.tp1.logic.gameobjects.vampires.Vampires;
+import org.ucm.tp1.logic.gameobjects.vampires.Vampire;
 
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class GameObjectList {
 
     private ArrayList<GameObject> list;
-    protected Vampires Vampire;
+    protected Vampire Vampire;
     protected Game game;
 
     public GameObjectList(){
@@ -54,4 +54,23 @@ public class GameObjectList {
         return list;
     }
 
+
+    public void move(){
+        for(int i = 0; i < list.size(); i++){
+            list.get(i).move();
+        }
+    }
+
+    public void attack() {
+        for(int i = 0; i < list.size(); i++){
+            list.get(i).attack();
+        }
+    }
+
+    public void removeDeadObjects() {
+        for(int i = 0; i < list.size(); i++){
+            if(isDead(i))
+                array(i);
+        }
+    }
 }

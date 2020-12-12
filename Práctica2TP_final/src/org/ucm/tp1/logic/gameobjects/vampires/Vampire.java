@@ -1,12 +1,16 @@
 package org.ucm.tp1.logic.gameobjects.vampires;
 
 import org.ucm.tp1.logic.Game;
+import org.ucm.tp1.logic.gameobjects.GameObject;
 import org.ucm.tp1.logic.gameobjects.IAttack;
 
-public class Vampire{
+public class Vampire extends GameObject {
+
+    private static int vampiresOnBoard;
+    private static int remainingVampires;
 
     private static final int DMG = 1;
-    private static Game game;
+    protected static Game game;
     protected int dmg;
     protected int resistance;
     protected int cycles;
@@ -20,6 +24,19 @@ public class Vampire{
         this.cycles = 0;
         this.alive = true;
         this.move = false;
+    }
+
+    public static int getRemainingVampires() {
+        return remainingVampires;
+    }
+
+    public static int getVampiresOnBoard(){
+        return vampiresOnBoard;
+    }
+
+    @Override
+    public int getCost() {
+        return 0;
     }
 
     public void update(Game game){
@@ -85,7 +102,7 @@ public class Vampire{
 
 //Representation
 
-    public String representV() {
+    public String getIcon() {
         return "V["+this.resistance+"]";
     }
 
@@ -103,7 +120,7 @@ public class Vampire{
 
 //Coordinates
 
-    @Override
+
     public void setPos(int x, int y) {
         this.x = x;
         this.y = y;
@@ -145,9 +162,13 @@ public class Vampire{
         this.move = move;
     }
 
-    public void Move(){
-        if(game.Empty(getX()-1,getY()) && getCycles() % 2 == 0) this.move = true;
+    public void move(){
+        if(game.Empty(getX()-1,getY()) && getCycles() % 2 == 0) {
+            this.move = true;
+            setX(getX()-1);
+        }
         else this.move = false;
+
     }
 
 

@@ -3,7 +3,7 @@ package org.ucm.tp1.logic.gameobjects.vampires;
 import org.ucm.tp1.logic.Game;
 import org.ucm.tp1.logic.gameobjects.IAttack;
 
-public class ExplosiveVampire extends Vampires {
+public class ExplosiveVampire extends Vampire {
 
     private static final int DMG = 1;
     private static final int EXPLOSIONDMG = 1;
@@ -42,15 +42,7 @@ public class ExplosiveVampire extends Vampires {
 
 
     public boolean receiveGarlicPush() {
-        if(game.getCoins() >= 10) {
-            game.buy(10);
-            if (getX() == game.getDim_X()) setResistance(0);
-            else if (getX() < game.getDim_X()) {
-                setX(getX() + 1);
-                setCycles(0);
-            }
-        }
-        return true;
+        return super.receiveGarlicPush();
     }
 
 
@@ -73,7 +65,8 @@ public class ExplosiveVampire extends Vampires {
 
 //Representation
 
-    public String representV() {
+    @Override
+    public String getIcon() {
         return "EV["+this.resistance+"]";
     }
 
@@ -133,9 +126,8 @@ public class ExplosiveVampire extends Vampires {
         this.move = move;
     }
 
-    public void Move(){
-        if(game.Empty(getX()-1,getY()) && getCycles() % 2 == 0) this.move = true;
-        else this.move = false;
+    public void move(){
+        super.move();
     }
 
 //Explode
@@ -145,7 +137,7 @@ public class ExplosiveVampire extends Vampires {
             for(int i = x-1; i <= x + 1; i++){
                 for(int j = y-1; j <= y+1; j++){
                     IAttack other = game.getAttackableInPosition(i,j);
-                    if(other != null) other.receiveExplosionDmg(DMG);
+                    if(other != null) other.receiveExplosionDmg(EXPLOSIONDMG);
                 }
             }
         }
