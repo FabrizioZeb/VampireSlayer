@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class GameObjectList {
 
     private ArrayList<GameObject> list;
-    protected Vampire Vampire;
     protected Game game;
 
     public GameObjectList(){
@@ -71,6 +70,29 @@ public class GameObjectList {
         for(int i = 0; i < list.size(); i++){
             if(isDead(i))
                 array(i);
+        }
+    }
+
+
+
+    public boolean vampireIn(int x, int y) {
+        int i = 0;
+        Vampire vm;
+        boolean enc = false;
+        while (i < Vampire.getRemainingVampires() && !enc){
+            //Esto no se puede hacer hay que cambiarlo
+            if(list.get(i).equals(Vampire.class) && list.get(i).getX() == x && list.get(i).getY() == y){
+                enc = true;
+                return true;
+            }
+            i++;
+        }
+        return false;
+    }
+
+    public void increaseCycles() {
+        for(int i = 0; i < list.size(); i++){
+            list.get(i).setCycles(list.get(i).getCycles()+1);
         }
     }
 }

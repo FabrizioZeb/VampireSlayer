@@ -57,7 +57,7 @@ public class Game implements IPrintable {
 		this.cycles = 0;
 	}
 
-	public void addSlayer(GameObject object, int x, int y){
+	public void addSlayer(int x, int y){
 		gameob.addSlayer(x,y);
 	}
 
@@ -87,6 +87,12 @@ public class Game implements IPrintable {
 	}
 
 	//check end
+
+	public void GameFinished() {
+		if(gameob.gameOver() ||gameob.victory()){
+			this.gamefinish = true;
+		}
+	}
 
 
 
@@ -141,5 +147,11 @@ public class Game implements IPrintable {
 	}
 
 
+	public boolean isLose() {
+		return lose;
+	}
 
+	public void setLose(boolean lose) {
+		this.lose = lose;
+	}
 }

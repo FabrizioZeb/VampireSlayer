@@ -100,8 +100,33 @@ public class GameObjectBoard {
 		return s;
 	}
 
+	public void IncreaseCycles(){
+		gameObjectList.increaseCycles();
+	}
+
 	public void removeDeadObjects() {
 		gameObjectList.removeDeadObjects();
+	}
+
+    public boolean gameOver() {
+		int i = 0;
+		while(i < game.getDim_Y() && !game.isLose()){
+			if(gameObjectList.vampireIn(0,i)){
+				game.setLose(true);
+				System.out.println("Game Over");
+			}
+			i++;
+		}
+		return game.isLose();
+    }
+
+	public boolean victory() {
+		boolean victory = false;
+		if(Vampire.getRemainingVampires() == 0 && Vampire.getVampiresOnBoard() == 0){
+			victory = true;
+			System.out.println("Victory");
+		}
+		return victory;
 	}
 }
 

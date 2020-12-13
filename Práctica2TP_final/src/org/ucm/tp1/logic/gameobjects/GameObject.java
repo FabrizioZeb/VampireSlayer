@@ -37,6 +37,8 @@ public abstract class GameObject implements IAttack{
 
     public abstract String getIcon();
 
+    public abstract void setCycles(int i);
+
     //IAttack interface start:
     public abstract void attack();
     public abstract boolean receiveSlayerAttack(int damage);
