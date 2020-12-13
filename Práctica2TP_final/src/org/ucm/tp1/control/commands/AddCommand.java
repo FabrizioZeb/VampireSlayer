@@ -7,6 +7,7 @@ public class AddCommand extends NoPCommand {
     private int x;
     private int y;
 
+
     public AddCommand(){
         super("[A]dd", "A", "Add a Slayer in x,y", "'(Command> add x y)'");
     }
@@ -19,12 +20,12 @@ public class AddCommand extends NoPCommand {
 
     @Override
     public Command parse(String[] commandWords) {
-        String f = commandWords.substring(1,2);
 
-        if(commandWords[0].equalsIgnoreCase("add") || commandWords[0].equalsIgnoreCase(f)){
+
+        if(commandWords[0].equalsIgnoreCase("add") || commandWords[0].equalsIgnoreCase("a")){
             if(commandWords.length == 1) System.out.println("Invalid command");
             else if(commandWords.length > 3) System.out.println("Invalid command");
-            else if(commandWords.length == 3 && (Integer.parseInt(commandWords[1]) < 0 || Integer.parseInt(commandWords[1]) > 1 || commandWords[2].length() > 1)){
+            else if(commandWords.length == 3 && (Integer.parseInt(commandWords[1]) < 3 || Integer.parseInt(commandWords[1]) > 1 || commandWords[2].length() > 1)){
                 System.out.println("Invalid position");
             }
             else {

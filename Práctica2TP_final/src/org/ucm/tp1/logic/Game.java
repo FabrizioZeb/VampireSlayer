@@ -145,6 +145,10 @@ public class Game implements IPrintable {
 	public int getCycles() {
 		return this.cycles;
 	}
+	//Vampires:
+	public int getNumberOfVampires(){
+		return level.getNumberOfVampires();
+	}
 
 
 	public boolean isLose() {
@@ -153,5 +157,9 @@ public class Game implements IPrintable {
 
 	public void setLose(boolean lose) {
 		this.lose = lose;
+	}
+
+	public void exit() {
+		System.exit(0);
 	}
 }

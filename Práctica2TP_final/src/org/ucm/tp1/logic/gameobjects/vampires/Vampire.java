@@ -4,6 +4,7 @@ import org.ucm.tp1.logic.Game;
 import org.ucm.tp1.logic.gameobjects.GameObject;
 import org.ucm.tp1.logic.gameobjects.IAttack;
 
+
 public class Vampire extends GameObject {
 
     private static int vampiresOnBoard;
@@ -33,6 +34,25 @@ public class Vampire extends GameObject {
     public static int getVampiresOnBoard(){
         return vampiresOnBoard;
     }
+
+
+    //Number of Vampires Static methods:
+    public static void InitializeRemainingVampires(){
+        remainingVampires = game.getNumberOfVampires();
+    }
+
+    public static void setRemainingVampires(int i){
+        remainingVampires = i;
+    }
+
+    public static void InitializeVampiresOnBoard(){
+        vampiresOnBoard = 0;
+    }
+
+    public static void setVampiresOnBoard(int i){
+        vampiresOnBoard = i;
+    }
+
 
     @Override
     public int getCost() {
