@@ -7,10 +7,12 @@ public abstract class GameObject implements IAttack{
 
     protected int x;
     protected int y;
+    protected static  Game game;
 
-    public GameObject(int x, int y){
+    public GameObject(int x, int y, Game game){
         this.x = x;
         this.y = y;
+        this.game = game;
     }
 
     public abstract int getCost();
@@ -44,7 +46,7 @@ public abstract class GameObject implements IAttack{
     public abstract boolean receiveSlayerAttack(int damage);
     public abstract boolean receiveVampireAttack(int damage);
     public abstract boolean receiveLightFlash();
-    public abstract  boolean receiveGarlicPush();
+    public abstract boolean receiveGarlicPush();
     public abstract boolean receiveDraculaAttack();
     public abstract boolean receiveExplosionDmg(int damage);
     //IAttack interface end;

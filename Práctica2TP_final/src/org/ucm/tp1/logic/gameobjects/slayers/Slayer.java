@@ -7,7 +7,6 @@ import org.ucm.tp1.logic.gameobjects.IAttack;
 public class Slayer extends GameObject {
 
     private static final int DMG = 1;
-    private static Game game;
     private int dmg;
     private int resistance;
     private final int COST = 50;
@@ -15,8 +14,8 @@ public class Slayer extends GameObject {
     private int cycles;
     private boolean alive;
 
-    public Slayer(int x, int y){
-        super(x,y);
+    public Slayer(int x, int y, Game game){
+        super(x,y, game);
         this.dmg = DMG;
         this.cost = COST;
         this.resistance = 3;

@@ -7,11 +7,10 @@ public class ExplosiveVampire extends Vampire {
 
     private static final int DMG = 1;
     private static final int EXPLOSIONDMG = 1;
-    private static Game game;
 
 
-    public ExplosiveVampire(int x, int y){
-        super(x,y);
+    public ExplosiveVampire(int x, int y, Game game){
+        super(x,y, game);
         this.dmg = DMG;
         this.resistance = 5;
         this.cycles = 0;
@@ -35,9 +34,7 @@ public class ExplosiveVampire extends Vampire {
 
 
     public boolean receiveLightFlash() {
-        if(game.getCoins() >= 50)
-            setResistance(0);
-        return true;
+       return super.receiveLightFlash();
     }
 
 
@@ -53,10 +50,7 @@ public class ExplosiveVampire extends Vampire {
 
     @Override
     public void attack(){
-        if(isAlive()){
-            IAttack other = game.getAttackableInPosition(x-1,y);
-            if(other != null) other.receiveVampireAttack(DMG);
-        }
+    super.attack();
     }
 
     public boolean isAlive() {

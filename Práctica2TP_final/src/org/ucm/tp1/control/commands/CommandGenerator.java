@@ -6,9 +6,12 @@ public class CommandGenerator {
             new HelpCommand(),
             new ResetCommand(),
             new ExitCommand(),
-            new ListCommand(),
-            new NoneCommand(),
-            new PrintModeCommand()
+            new UpdateCommand(),
+            new AddBloodBankCommand(),
+            new AddVampireCommand(),
+            new GarlicPushCommand(),
+            new LightFlashCommand(),
+            new SuperCoinsCommand()
     };
 
     public static Command parseCommand(String [] commandWords){

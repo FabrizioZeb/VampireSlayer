@@ -3,6 +3,7 @@ package org.ucm.tp1.logic.list;
 import org.ucm.tp1.logic.Game;
 import org.ucm.tp1.logic.gameobjects.GameObject;
 import org.ucm.tp1.logic.gameobjects.vampires.Vampire;
+import org.ucm.tp1.logic.gameobjects.vampires.Dracula;
 
 
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class GameObjectList {
         int i = 0;
         Vampire vm;
         boolean enc = false;
-        while (i < Vampire.getRemainingVampires() && !enc){
+        while (i < list.size() && !enc){
             //Esto no se puede hacer hay que cambiarlo
             if(list.get(i).equals(Vampire.class) && list.get(i).getX() == x && list.get(i).getY() == y){
                 enc = true;
@@ -94,5 +95,24 @@ public class GameObjectList {
         for(int i = 0; i < list.size(); i++){
             list.get(i).setCycles(list.get(i).getCycles()+1);
         }
+    }
+    
+    public boolean checkDracula() {
+    	int i = 0;
+    	while(i<list.size()) {
+    		if(list.get(i).equals(Dracula.class))
+    			return true;
+    	}
+    	return false;
+    }
+    
+    public boolean garlicPush() {
+    	for(int i = 0; i < list.size(); i++) list.get(i).receiveGarlicPush();
+    	return true;
+    }
+    
+    public boolean lightFlash() {
+    	for(int i = 0; i < list.size(); i++) list.get(i).receiveLightFlash();
+    	return true;
     }
 }

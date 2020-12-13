@@ -57,15 +57,50 @@ public class Game implements IPrintable {
 		this.cycles = 0;
 	}
 
-	public void addSlayer(int x, int y){
-		gameob.addSlayer(x,y);
+	public boolean addSlayer(int x, int y){
+		if(level.getDim_x() > x && x > 0 && level.getDim_y() > y && y > 0)
+				return gameob.addSlayer(x,y);
+		else {
+			System.out.println("Invalid position");
+			return false;
+		}
 	}
+	
+	public boolean addBloodBank(int x, int y, int z) {
+		if(level.getDim_x() > x && x > 0 && level.getDim_y() > y && y > 0)
+			return gameob.addBloodBank(x,y,z);
+		else {
+			System.out.println("Invalid position");
+			return false;
+		}
+	}
+	
+	public boolean garlicPush(int COST) {
+		return gameob.garlicPush(COST);
+	}
+	
+	public boolean lightFlash(int COST) {
+		return gameob.lightFlash(COST);
+	}
+	
+	public boolean superCoins(int COINS) {
+		return gameob.superCoins(COINS);
+	}
+	
+	public boolean addSelectedVampire(String type, int x, int y) {
+		return gameob.addSelectedVampire(type, x, y);
+	}
+	
 
 
 	//update
 
 	public void update(){
 		gameob.update();
+	}
+	
+	public void recieveBloodBankCoins(int z){
+		gameob.recieveBloodBankCoins(z);
 	}
 
 	//attack
@@ -78,6 +113,10 @@ public class Game implements IPrintable {
 
 	public void addVampire(){
 		gameob.addVampire();
+	}
+	
+	public boolean vampireFrequency() {
+		return (rand.nextDouble()<level.getVampireFrequency());
 	}
 
 	//remove dead objects
@@ -93,21 +132,6 @@ public class Game implements IPrintable {
 			this.gamefinish = true;
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	public IAttack getAttackableInPosition(int x, int y) {
 		GameObject other = null;
@@ -136,6 +160,12 @@ public class Game implements IPrintable {
 
 	public int getDim_Y(){
 		return level.getDim_y();
+	}
+	
+	public boolean getObject(int x, int y) {
+		if(gameob.getObjectInPos(x, y)!=null) return true;
+		else return false;
+					
 	}
 	//Rand
 	public Random getRand() {

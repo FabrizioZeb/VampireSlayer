@@ -3,7 +3,10 @@ package org.ucm.tp1.logic;
 import org.ucm.tp1.logic.gameobjects.GameObject;
 import org.ucm.tp1.logic.gameobjects.slayers.Slayer;
 import org.ucm.tp1.logic.gameobjects.vampires.Vampire;
+import org.ucm.tp1.logic.gameobjects.vampires.ExplosiveVampire;
+import org.ucm.tp1.logic.gameobjects.vampires.Dracula;
 import org.ucm.tp1.logic.list.GameObjectList;
+import org.ucm.tp1.logic.gameobjects.BloodBank;
 
 
 public class GameObjectBoard {
@@ -50,22 +53,47 @@ public class GameObjectBoard {
 		gameObjectList.attack();
 	}
 
-	public void addSlayer(int x, int y) {
-		Slayer Sl = new Slayer(x,y);
+	public boolean addSlayer(int x, int y) {
+		Slayer Sl = new Slayer(x,y,game);
 		if(coins.getCoins() > Sl.getCost() && getObjectInPos(x, y) == null) {
 			coins.buyAt(Sl.getCost());
 			gameObjectList.addObject(Sl);
+			return true;
 		}
-		else if(coins.getCoins() < Sl.getCost()) System.out.println("Insufficient coins");
-		else if(getObjectInPos(x,y) != null) System.out.println("Position occupied");
+		else if(coins.getCoins() < Sl.getCost()) {
+			System.out.println("Insufficient coins");
+			return false;
+		}
+		else if(getObjectInPos(x,y) != null) {
+			System.out.println("Position occupied");
+			return false;
+		}
+		return false;
 	}
 
 
 	public void addVampire() {
-		if(getRandomRow() != -1){
+		if(getRandomRow() != -1 && game.vampireFrequency()){
 			int row = getRandomRow();
 			int col = game.getDim_X()-1;
-			gameObjectList.addObject(new Vampire(row,col));
+			gameObjectList.addObject(new Vampire(col,row,game));
+			Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard()+1);
+			Vampire.setRemainingVampires(Vampire.getRemainingVampires()-1);
+		}
+		if(getRandomRow() != -1 && game.vampireFrequency()){
+			int row = getRandomRow();
+			int col = game.getDim_X()-1;
+			gameObjectList.addObject(new ExplosiveVampire(col,row,game));
+			Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard()+1);
+			Vampire.setRemainingVampires(Vampire.getRemainingVampires()-1);
+		}
+		if(getRandomRow() != -1 && game.vampireFrequency() && !gameObjectList.checkDracula()){
+			int row = getRandomRow();
+			int col = game.getDim_X()-1;
+			gameObjectList.addObject(new Dracula(col,row,game));
+			System.out.println("Dracula is alive");
+			Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard()+1);
+			Vampire.setRemainingVampires(Vampire.getRemainingVampires()-1);
 		}
 	}
 
@@ -77,7 +105,7 @@ public class GameObjectBoard {
 		int rows = game.getDim_Y();
 		while (i < rows && !set){
 			randomRow = game.getRand().nextInt(rows);
-			if(getObjectInPos(randomRow,cols) == null) set = true;
+			if(getObjectInPos(cols,randomRow) == null) set = true;
 			i++;
 		}
 		return randomRow;
@@ -127,6 +155,79 @@ public class GameObjectBoard {
 			System.out.println("Victory");
 		}
 		return victory;
+	}
+	
+	public void recieveBloodBankCoins(int z) {
+		coins.increaseCoins(z);
+	}
+	
+	public boolean addBloodBank(int x, int y, int z) {
+		BloodBank BB = new BloodBank(x,y,z,game);
+		if(coins.getCoins() > z && getObjectInPos(x, y) == null) {
+			coins.buyAt(z);
+			gameObjectList.addObject(BB);
+			return true;
+		}
+		else if(coins.getCoins() < z) {
+			System.out.println("Insufficient coins");
+			return false;
+		}
+		else if(getObjectInPos(x,y) != null) {
+			System.out.println("Position occupied");
+			return false;
+		}
+		return false;
+	}
+	
+	public boolean garlicPush(int COST) {
+		if(coins.getCoins() > COST) {
+			coins.buyAt(COST);
+			return gameObjectList.garlicPush();
+		}
+		return false;
+	}
+	
+	public boolean lightFlash(int COST) {
+		if(coins.getCoins() > COST) {
+			coins.buyAt(COST);
+			return gameObjectList.lightFlash();
+		}
+		return false;
+	}
+	
+	public boolean superCoins(int COINS) {
+		coins.increaseCoins(COINS);
+		return true;
+	}
+	
+	public boolean addSelectedVampire(String type, int x, int y) {
+		if(type.equals("[V]") && getObjectInPos(x,y).equals(null)) {
+			gameObjectList.addObject(new Vampire(x,y,game));
+			Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard()+1);
+			Vampire.setRemainingVampires(Vampire.getRemainingVampires()-1);
+			return true;
+		}
+		else if(type.equals("[E]") && getObjectInPos(x,y).equals(null)) {
+			gameObjectList.addObject(new ExplosiveVampire(x,y,game));
+			Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard()+1);
+			Vampire.setRemainingVampires(Vampire.getRemainingVampires()-1);
+			return true;
+		}
+		else if(type.equals("[D]") && getObjectInPos(x,y).equals(null)) {
+			if(!gameObjectList.checkDracula()) {
+				gameObjectList.addObject(new Dracula(x,y,game));
+				Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard()+1);
+				Vampire.setRemainingVampires(Vampire.getRemainingVampires()-1);
+				System.out.println("Dracula is alive");
+				return true;
+			}
+			else System.out.println("[ERROR]: Dracula is already alive");
+			return false;
+		}
+		else {
+			System.out.println("[ERROR]: invalid type");
+			return false;
+		}
 	}
 }
 

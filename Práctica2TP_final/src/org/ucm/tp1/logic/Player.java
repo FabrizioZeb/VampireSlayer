@@ -23,8 +23,10 @@ public class Player {
 	public void aumentar10monedas() {
 		if(game.getRand().nextFloat() > 0.5) this.monedas += 10;	
 	}
-
-
+	
+	public void increaseCoins(int z) {
+		this.monedas +=z;
+	}
 	
 	public void buyAt(int i) {
 		monedas -= i;

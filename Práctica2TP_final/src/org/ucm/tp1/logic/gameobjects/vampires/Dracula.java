@@ -5,11 +5,9 @@ import org.ucm.tp1.logic.gameobjects.IAttack;
 
 public class Dracula extends Vampire{
 
-    private static final int DMG = 999;
 
-    public Dracula(int x, int y) {
-        super(x, y);
-        this.dmg = DMG;
+    public Dracula(int x, int y, Game game) {
+        super(x, y, game);
         this.resistance = 5;
         this.cycles = 0;
         this.alive = true;
@@ -32,9 +30,7 @@ public class Dracula extends Vampire{
 
 
     public boolean receiveLightFlash() {
-        if(game.getCoins() >= 50)
-            setResistance(0);
-        return true;
+        return super.receiveLightFlash();
     }
 
 
@@ -57,7 +53,7 @@ public class Dracula extends Vampire{
     public void attack(){
         if(isAlive()){
             IAttack other = game.getAttackableInPosition(x-1,y);
-            if(other != null) other.receiveVampireAttack(DMG);
+            if(other != null) other.receiveDraculaAttack();
         }
     }
 

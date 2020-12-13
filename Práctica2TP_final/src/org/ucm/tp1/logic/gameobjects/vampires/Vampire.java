@@ -11,15 +11,14 @@ public class Vampire extends GameObject {
     private static int remainingVampires;
 
     private static final int DMG = 1;
-    protected static Game game;
     protected int dmg;
     protected int resistance;
     protected int cycles;
     protected boolean alive;
     protected boolean move;
 
-    public Vampire(int x, int y){
-        super(x,y);
+    public Vampire(int x, int y, Game game){
+        super(x,y, game);
         this.dmg = DMG;
         this.resistance = 5;
         this.cycles = 0;
@@ -75,20 +74,16 @@ public class Vampire extends GameObject {
 
 
     public boolean receiveLightFlash() {
-        if(game.getCoins() >= 50)
             setResistance(0);
         return true;
     }
 
 
     public boolean receiveGarlicPush() {
-        if(game.getCoins() >= 10) {
-            game.buy(10);
-            if (getX() == game.getDim_X()) setResistance(0);
-            else if (getX() < game.getDim_X()) {
+        setCycles(0);
+         if (getX() == game.getDim_X()) setResistance(0);
+            else if (getX() < game.getDim_X() && game.getObject(this.x + 1,this.y)) {
                 setX(getX() + 1);
-                setCycles(0);
-            }
         }
         return true;
     }
@@ -117,6 +112,7 @@ public class Vampire extends GameObject {
 
 
     public boolean isAlive() {
+    	if(this.resistance <= 0) setVampiresOnBoard(getVampiresOnBoard() - 1);
         return this.resistance > 0;
     }
 
