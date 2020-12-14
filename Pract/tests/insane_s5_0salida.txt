@@ -1,0 +1,5 @@
+Buffy the Vampire Slayer 1.0
+Random generator initialized with seed: 5
+Victory
+org.ucm.tp1.logic.Game@28d93b30
+[Game over] 
