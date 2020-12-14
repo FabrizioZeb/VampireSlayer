@@ -5,7 +5,7 @@ import org.ucm.tp1.logic.Game;
 
 public class ExitCommand extends NoPCommand {
     public ExitCommand(){
-        super("[E]xit","E","finish the program","[e]xit");
+        super("[e]xit","e","exit game","[e]xit");
     }
     @Override
     public boolean execute(Game game){

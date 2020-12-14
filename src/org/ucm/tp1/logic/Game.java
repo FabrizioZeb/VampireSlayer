@@ -141,6 +141,7 @@ public class Game implements IPrintable {
 				return false;
 			} 
 			else {
+				coins.buyAt(z);
 				gameob.addBloodBank(x, y, z);
 				return true;
 			}
@@ -174,9 +175,12 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean addSelectedVampire(String type, int x, int y) {
-		if(Vampire.getRemainingVampires() == 0) return false;
-		else
-			return gameob.addSelectedVampire(type, x, y);
+		if(level.getDim_x() > x && level.getDim_y() > y) {
+			if (Vampire.getRemainingVampires() == 0) return false;
+			else
+				return gameob.addSelectedVampire(type, x, y);
+		}
+		else return false;
 	}
 	
 
@@ -185,11 +189,13 @@ public class Game implements IPrintable {
 
 	public void update(){
 		coins.aumentar10monedas();
+		gameob.update();
 		gameob.move();
 		gameob.attack();
 		addVampire();
 		gameob.removeDeadObjects();
 		gameob.IncreaseCycles();
+
 	}
 	
 	public void recieveBloodBankCoins(int z){
@@ -207,7 +213,6 @@ public class Game implements IPrintable {
 	//add vampires
 
 	public void addVampire(){
-		if(Vampire.getRemainingVampires() > 0)
 			gameob.addVampire();
 	}
 	

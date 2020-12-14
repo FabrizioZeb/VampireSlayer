@@ -7,7 +7,7 @@ public class SuperCoinsCommand extends NoPCommand{
 	private static final int COINS = 1000;
 
 	public SuperCoinsCommand() {
-		super("[C]oins", "C", "Add 1000 coins", "[c]oins");
+		super("[c]oins", "c", "add 1000 coins", "[c]oins");
 	}
 
 	@Override

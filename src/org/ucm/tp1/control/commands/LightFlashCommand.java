@@ -7,7 +7,7 @@ public class LightFlashCommand extends NoPCommand{
 	private static final int COST = 50;
 
 	public LightFlashCommand() {
-		super("[L]ight", "L", "Kill all vampires", "[l]ight");
+		super("[l]ight", "l", "kills all the vampires", "[l]ight");
 	}
 
 	@Override

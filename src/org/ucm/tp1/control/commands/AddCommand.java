@@ -9,7 +9,7 @@ public class AddCommand extends NoPCommand {
 
 
     public AddCommand(){
-        super("[A]dd", "A", "Add a Slayer in x, y", "'(Command> add x y)'");
+        super("[a]dd", "a", "add a slayer in position x, y", "[a]dd <x> <y>");
     }
 
     @Override

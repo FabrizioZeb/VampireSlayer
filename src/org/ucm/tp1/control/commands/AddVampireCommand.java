@@ -9,7 +9,7 @@ public class AddVampireCommand extends NoPCommand{
 	private String type;
 
 	public AddVampireCommand() {
-		super("[V]ampire", "V", "Add a vampire of the type u want ([D] for Dracula, [E] for Explosive and empty for default) in x, y", "[v]ampire [<type>] <x><y>");
+		super("[v]ampire", "v", "Type = {\"\"|\"D\"|\"E\"}: add a vampire in position x, y", "[v]ampire [<type>] <x> <y>.");
 		// TODO Auto-generated constructor stub
 	}
 

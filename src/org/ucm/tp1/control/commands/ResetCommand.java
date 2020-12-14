@@ -6,7 +6,7 @@ import org.ucm.tp1.logic.Game;
 public class ResetCommand extends NoPCommand{
 
     public ResetCommand(){
-        super("[R]eset","R" ,"Resets game.","[r]eset");
+        super("[r]eset","r" ,"reset game","[r]eset");
     }
 
 

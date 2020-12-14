@@ -7,7 +7,7 @@ public class GarlicPushCommand extends NoPCommand{
 	private static final int COST = 10;
 
 	public GarlicPushCommand() {
-		super("[G]arlic", "G", "Push all vampires", "[g]arlic");
+		super("[g]arlic", "g", "pushes back vampires", "[g]arlic");
 	}
 
 	@Override

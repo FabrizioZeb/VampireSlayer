@@ -6,12 +6,12 @@ import org.ucm.tp1.control.commands.CommandGenerator;
 public class HelpCommand extends NoPCommand {
 
     public HelpCommand(){
-        super("[H]elp","H","print this help message","[h]elp");
+        super("[h]elp","h","show this help","[h]elp");
     }
 
     @Override
     public boolean execute(Game game) {
-    	CommandGenerator.commandHelp();
+    	System.out.println(CommandGenerator.commandHelp());
         return true;
     }
 

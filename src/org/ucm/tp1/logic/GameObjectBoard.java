@@ -48,21 +48,21 @@ public class GameObjectBoard {
 
 
 	public void addVampire() {
-		if(getRandomRow() != -1 && game.vampireFrequency()){
+		if(getRandomRow() != -1 && game.vampireFrequency() && Vampire.getRemainingVampires() > 0){
 			int row = getRandomRow();
 			int col = game.getDim_X()-1;
 			gameObjectList.addObject(new Vampire(col,row,game));
 			Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard()+1);
 			Vampire.setRemainingVampires(Vampire.getRemainingVampires()-1);
 		}
-		if(getRandomRow() != -1 && game.vampireFrequency()){
+		if(getRandomRow() != -1 && game.vampireFrequency() && Vampire.getRemainingVampires() > 0){
 			int row = getRandomRow();
 			int col = game.getDim_X()-1;
 			gameObjectList.addObject(new ExplosiveVampire(col,row,game));
 			Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard()+1);
 			Vampire.setRemainingVampires(Vampire.getRemainingVampires()-1);
 		}
-		if(getRandomRow() != -1 && game.vampireFrequency() && !Dracula.Alive()){
+		if(getRandomRow() != -1 && game.vampireFrequency() && !Dracula.Alive() && Vampire.getRemainingVampires() > 0){
 			int row = getRandomRow();
 			int col = game.getDim_X()-1;
 			gameObjectList.addObject(new Dracula(col,row,game));
@@ -164,6 +164,10 @@ public class GameObjectBoard {
 			System.out.println("[ERROR]: invalid type");
 			return false;
 		}
+	}
+
+	public void update() {
+		gameObjectList.update();
 	}
 }
 

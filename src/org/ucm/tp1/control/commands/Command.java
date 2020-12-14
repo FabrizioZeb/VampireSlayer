@@ -42,6 +42,6 @@ public abstract class Command {
 	  }
 	  
 	  public String helpText(){
-	    return details + ": " + help + "\n";
+	    return help + ": " + details;
 	  }
 }

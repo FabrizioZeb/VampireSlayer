@@ -103,4 +103,10 @@ public class GameObjectList {
     	for(int i = 0; i < list.size(); i++) list.get(i).receiveLightFlash();
     	return true;
     }
+
+    public void update(){
+        for(int i = 0; i < list.size(); i++){
+            list.get(i).update(game);
+        }
+    }
 }

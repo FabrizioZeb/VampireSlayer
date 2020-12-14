@@ -9,7 +9,7 @@ public class AddBloodBankCommand extends NoPCommand{
 	private int z;
 
     public AddBloodBankCommand(){
-        super("[B]ank","B","Add Blood Bank in x,y","[b]ank <x><y><z>");
+        super("[B]ank","B","add a blood bank with cost z in position x, y.","[b]ank <x> <y> <z>:");
     }
 
     @Override
