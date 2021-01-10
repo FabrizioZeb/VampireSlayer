@@ -1,6 +1,9 @@
 package org.ucm.tp1.control.commands;
 
+import org.ucm.tp1.exceptions.CommandExecuteException;
 import org.ucm.tp1.exceptions.CommandParseException;
+import org.ucm.tp1.exceptions.NotEnoughCoinsException;
+import org.ucm.tp1.exceptions.UnvalidPositionException;
 import org.ucm.tp1.logic.Game;
 
 public class AddCommand extends NoPCommand {
@@ -14,12 +17,18 @@ public class AddCommand extends NoPCommand {
     }
 
     @Override
-    public boolean execute(Game game) {
-        if(game.addSlayer(x,y)) {
-        	game.update();
-        	return true;
+    public boolean execute(Game game) throws CommandExecuteException {
+        try {
+            if (game.addSlayer(x, y)) {
+                game.update();
+                return true;
+            }
         }
-        else return false;
+        catch (NotEnoughCoinsException | UnvalidPositionException nec){
+            System.out.println(nec.getMessage());
+            throw new CommandExecuteException(String.format("[ERROR]: Failed to add Slayer"), nec);
+        }
+        return false;
     }
 
     @Override

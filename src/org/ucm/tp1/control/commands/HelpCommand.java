@@ -2,7 +2,6 @@ package org.ucm.tp1.control.commands;
 
 import org.ucm.tp1.exceptions.CommandParseException;
 import org.ucm.tp1.logic.Game;
-import org.ucm.tp1.control.commands.CommandGenerator;
 
 public class HelpCommand extends NoPCommand {
 

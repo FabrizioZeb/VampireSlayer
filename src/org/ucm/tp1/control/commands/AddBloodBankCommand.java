@@ -2,6 +2,8 @@ package org.ucm.tp1.control.commands;
 
 import org.ucm.tp1.exceptions.CommandExecuteException;
 import org.ucm.tp1.exceptions.CommandParseException;
+import org.ucm.tp1.exceptions.NotEnoughCoinsException;
+import org.ucm.tp1.exceptions.UnvalidPositionException;
 import org.ucm.tp1.logic.Game;
 
 public class AddBloodBankCommand extends NoPCommand{
@@ -33,11 +35,16 @@ public class AddBloodBankCommand extends NoPCommand{
     }
 
     @Override
-    public boolean execute(Game game) {
-    	if(game.addBloodBank(x,y,z)){
-			game.update();
-			return true;
-		}
-		else return false;
+    public boolean execute(Game game) throws CommandExecuteException {
+    	try {
+            if (game.addBloodBank(x, y, z)) {
+                game.update();
+                return true;
+            }
+        } catch (NotEnoughCoinsException | UnvalidPositionException nec) {
+            System.out.println(nec.getMessage());
+            throw new CommandExecuteException(String.format("[ERROR]: Failed to add Blood Bank"), nec);
+        }
+        return false;
     }
 }

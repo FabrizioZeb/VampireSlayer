@@ -2,6 +2,7 @@ package org.ucm.tp1.control.commands;
 
 import org.ucm.tp1.exceptions.CommandExecuteException;
 import org.ucm.tp1.exceptions.CommandParseException;
+import org.ucm.tp1.exceptions.NoMoreVampiresException;
 import org.ucm.tp1.exceptions.UnvalidPositionException;
 import org.ucm.tp1.logic.Game;
 
@@ -20,11 +21,15 @@ public class AddVampireCommand extends NoPCommand{
 
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException{
-		try{ return game.addSelectedVampire(type,x,y);}
-		catch (UnvalidPositionException upe){
+		try{
+			game.addSelectedVampire(type,x,y);
+
+		}
+		catch (UnvalidPositionException | NoMoreVampiresException upe){
 			System.out.println(upe.getMessage());
 			throw new CommandExecuteException(String.format("[ERROR]: Fail to add vampire"),upe);
 		}
+		return false;
 	}
 
 	@Override

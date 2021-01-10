@@ -4,6 +4,8 @@ import java.util.EmptyStackException;
 import java.util.Random;
 
 import org.ucm.tp1.exceptions.DraculaIsAliveException;
+import org.ucm.tp1.exceptions.NoMoreVampiresException;
+import org.ucm.tp1.exceptions.NotEnoughCoinsException;
 import org.ucm.tp1.exceptions.UnvalidPositionException;
 import org.ucm.tp1.view.GamePrinter;
 import org.ucm.tp1.logic.gameobjects.slayers.Slayer;
@@ -107,7 +109,7 @@ public class Game implements IPrintable {
 		this.cycles = 0;
 	}
 
-	public boolean addSlayer(int x, int y){
+	public boolean addSlayer(int x, int y) throws UnvalidPositionException, NotEnoughCoinsException {
 		if(level.getDim_x() > x && x >= 0 && level.getDim_y() > y && y >= 0){
 			Slayer Sl = new Slayer(x,y,this);
 			if(coins.getCoins() >= Sl.getCost() && gameob.empty(x, y)) {
@@ -116,12 +118,10 @@ public class Game implements IPrintable {
 				return true;
 			}
 			else if(gameob.getObjectInPos(x,y) != null) {
-			System.out.println("Position occupied");
-			return false;
+				throw new UnvalidPositionException("[ERROR]: Position (" + x + ", " + y + "): Unvalid Position");
 			}	
 			else if(coins.getCoins() < Sl.getCost()) {
-			System.out.println("Insufficient coins");
-			return false;
+				throw new NotEnoughCoinsException("[ERROR]: BloodBank cost is " + Sl.getCost() + ": Not enough coins");
 			}
 
 		}
@@ -132,15 +132,13 @@ public class Game implements IPrintable {
 		return false;
 	}
 	
-	public boolean addBloodBank(int x, int y, int z) {
+	public boolean addBloodBank(int x, int y, int z) throws UnvalidPositionException,NotEnoughCoinsException {
 		if(level.getDim_x() > x && x >= 0 && level.getDim_y() > y && y >= 0){
 			if(coins.getCoins() < z) {
-				System.out.println("Insufficient Coins");
-				return false;
+				throw new NotEnoughCoinsException("[ERROR]: BloodBank cost is " + z + ": Not enough coins");
 			}
 			else if(gameob.getObjectInPos(x, y) != null){
-				System.out.println("Position Ocuppied");
-				return false;
+				throw new UnvalidPositionException("[ERROR]: Position (" + x + ", " + y + "): Unvalid Position");
 			} 
 			else {
 				coins.buyAt(z);
@@ -149,34 +147,31 @@ public class Game implements IPrintable {
 			}
 		}
 		
-		else {
-			System.out.println("Invalid position");
-			return false;
-		}
+		else throw new UnvalidPositionException("[ERROR]: Position (" + x + ", " + y + "): Unvalid Position");
 	}
 	
-	public boolean garlicPush(int COST) {
+	public boolean garlicPush(int COST) throws NotEnoughCoinsException {
 		if(coins.getCoins() > COST){
 			coins.buyAt(COST);
 			return gameob.garlicPush(COST);
 		}
-		else return false;
+		else throw new NotEnoughCoinsException("[ERROR]: Garlic Push cost is" + COST + ": Not enough coins");
 		
 	}
 	
-	public boolean lightFlash(int COST) {
+	public boolean lightFlash(int COST) throws NotEnoughCoinsException {
 		if(coins.getCoins() > COST) {
 			coins.buyAt(COST);
-		return gameob.lightFlash(COST);
+			return gameob.lightFlash(COST);
 		}
-		else return false;
+		else throw new NotEnoughCoinsException("[ERROR]: Light Flash cost is" + COST + ": Not enough coins");
 	}
 	
 	public void superCoins(int COINS) {
 		coins.increaseCoins(COINS);
 	}
 	
-	public boolean addSelectedVampire(String type, int x, int y) throws UnvalidPositionException, DraculaIsAliveException {
+	public boolean addSelectedVampire(String type, int x, int y) throws UnvalidPositionException, DraculaIsAliveException, NoMoreVampiresException {
 		if(level.getDim_x() > x && level.getDim_y() > y) {
 			if (Vampire.getRemainingVampires() == 0) return false;
 			else
@@ -184,7 +179,7 @@ public class Game implements IPrintable {
 				return gameob.addSelectedVampire(type, x, y);
 				else throw new UnvalidPositionException("[ERROR]: Position (" + x + ", " + y + "): Unvalid position");
 		}
-		else return false;
+		else throw new UnvalidPositionException("[ERROR]: Position (" + x + ", " + y + "): Unvalid position");
 	}
 	
 

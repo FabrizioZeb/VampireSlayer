@@ -1,6 +1,5 @@
 package org.ucm.tp1.control.commands;
 
-import org.ucm.tp1.control.Controller;
 import org.ucm.tp1.exceptions.CommandExecuteException;
 import org.ucm.tp1.exceptions.CommandParseException;
 import org.ucm.tp1.logic.Game;

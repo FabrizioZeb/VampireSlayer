@@ -1,6 +1,8 @@
 package org.ucm.tp1.control.commands;
 
+import org.ucm.tp1.exceptions.CommandExecuteException;
 import org.ucm.tp1.exceptions.CommandParseException;
+import org.ucm.tp1.exceptions.NotEnoughCoinsException;
 import org.ucm.tp1.logic.Game;
 
 public class GarlicPushCommand extends NoPCommand{
@@ -12,11 +14,17 @@ public class GarlicPushCommand extends NoPCommand{
 	}
 
 	@Override
-	public boolean execute(Game game) {
-		if(game.garlicPush(COST)) {
-			game.update();
-			return true;
-		}else return false;
+	public boolean execute(Game game) throws CommandExecuteException {
+		try{
+			if(game.garlicPush(COST)) {
+				game.update();
+				return true;
+			}
+		} catch (NotEnoughCoinsException nec){
+			System.out.println(nec.getMessage());
+			throw new CommandExecuteException(String.format("[ERROR]: Failed to garlic push"),nec);
+		}
+		return false;
 	}
 
 	@Override
