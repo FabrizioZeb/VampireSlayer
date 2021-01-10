@@ -1,15 +1,16 @@
 package org.ucm.tp1.control.commands;
 
+import org.ucm.tp1.exceptions.CommandParseException;
 import org.ucm.tp1.logic.Game;
 
 public class AddCommand extends NoPCommand {
 
     private int x;
     private int y;
-
+    private static final String help = "[a]dd <x> <y>";
 
     public AddCommand(){
-        super("[a]dd", "a", "add a slayer in position x, y", "[a]dd <x> <y>");
+        super("[a]dd", "a", "add a slayer in position x, y", help);
     }
 
     @Override
@@ -22,17 +23,21 @@ public class AddCommand extends NoPCommand {
     }
 
     @Override
-    public Command parse(String[] commandWords) {
-
+    public Command parse(String[] commandWords) throws CommandParseException{
         if(commandWords[0].equalsIgnoreCase("add") || commandWords[0].equalsIgnoreCase("a")){
-            if(commandWords.length < 3) System.out.println("Invalid command");
-            else if(commandWords.length > 3) System.out.println("Invalid command");
+            if(commandWords.length != 3) throw new CommandParseException("[ERROR]: + Command " + name + " :" + incorrectNumberOfArgsMsg);
             else {
-                this.x = Integer.parseInt(commandWords[1]);
-                this.y = Integer.parseInt(commandWords[2]);
-                return this;
+                if(isNumeric(commandWords[1]) && isNumeric(commandWords[2])){
+                    this.x = Integer.parseInt(commandWords[1]);
+                    this.y = Integer.parseInt(commandWords[2]);
+                    return this;
+                }
+                else throw new CommandParseException("ERROR]: Invalid argument for add slayer command, number expected:" + help);
             }
         }
         return null;
     }
+
+
+
 }

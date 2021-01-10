@@ -131,7 +131,7 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean addBloodBank(int x, int y, int z) {
-		if(level.getDim_x() > x && x > 0 && level.getDim_y() > y && y > 0){
+		if(level.getDim_x() > x && x >= 0 && level.getDim_y() > y && y >= 0){
 			if(coins.getCoins() < z) {
 				System.out.println("Insufficient Coins");
 				return false;
@@ -195,7 +195,7 @@ public class Game implements IPrintable {
 		addVampire();
 		gameob.removeDeadObjects();
 		gameob.IncreaseCycles();
-
+		cycles++;
 	}
 	
 	public void recieveBloodBankCoins(int z){

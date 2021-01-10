@@ -1,5 +1,7 @@
 package org.ucm.tp1.control.commands;
 
+import org.ucm.tp1.exceptions.CommandParseException;
+
 public class CommandGenerator {
     private static Command[] availableCommands = {
             new AddCommand(),
@@ -14,7 +16,7 @@ public class CommandGenerator {
             new SuperCoinsCommand()
     };
 
-    public static Command parseCommand(String [] commandWords){
+    public static Command parseCommand(String [] commandWords) throws CommandParseException {
         Command command;
         for(Command i: availableCommands){
             command = i.parse(commandWords);

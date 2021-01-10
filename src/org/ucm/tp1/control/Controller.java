@@ -3,7 +3,10 @@ package org.ucm.tp1.control;
 import java.util.Scanner;
 
 import org.ucm.tp1.control.commands.Command;
+import org.ucm.tp1.exceptions.CommandExecuteException;
 import org.ucm.tp1.control.commands.CommandGenerator;
+import org.ucm.tp1.exceptions.CommandParseException;
+import org.ucm.tp1.exceptions.GameException;
 import org.ucm.tp1.logic.Game;
 
 public class Controller {
@@ -28,20 +31,20 @@ public class Controller {
 
 	    while (!game.isFinish()){
 	    		
-        	if (refreshDisplay) printGame();
+        	if (refreshDisplay){ printGame();
         		 refreshDisplay = false;
         		 
 			  System.out.println(prompt);	
 			  String s = scanner.nextLine();
 			  String[] parameters = s.toLowerCase().trim().split(" ");
 			  System.out.println("[DEBUG] Executing: " + s);
-		      Command command = CommandGenerator.parseCommand(parameters);
-		      if (command != null) { 
-		    	  	refreshDisplay = command.execute(game);
-		       } 
-		       else {
-		    	   		System.out.println("[ERROR]: "+ unknownCommandMsg);
-		       }
+				  try {
+					  Command command = CommandGenerator.parseCommand(parameters);
+					  refreshDisplay = command.execute(game);
+				  } catch (GameException ex) {
+					  System.out.format(ex.getMessage() + "%n%n");
+				  }
+			}
 		}
 	    
         	if (refreshDisplay) printGame();

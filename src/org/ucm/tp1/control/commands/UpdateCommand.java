@@ -1,6 +1,7 @@
 package org.ucm.tp1.control.commands;
 
 import org.ucm.tp1.control.Controller;
+import org.ucm.tp1.exceptions.CommandParseException;
 import org.ucm.tp1.logic.Game;
 
 public class UpdateCommand extends NoPCommand{
@@ -16,9 +17,9 @@ public class UpdateCommand extends NoPCommand{
     }
 
     @Override
-    public Command parse(String[] commandWords) {
+    public Command parse(String[] commandWords) throws CommandParseException {
     	if(commandWords[0].equalsIgnoreCase("n") || commandWords[0].equalsIgnoreCase("none") || commandWords[0].equalsIgnoreCase("")) {
-			if(commandWords.length != 1) System.out.println("Invalid command");
+			if(commandWords.length != 1) throw new CommandParseException("[ERROR]: Command " + name + " :" + incorrectNumberOfArgsMsg);
 			else return this;
 		}
 		return null;

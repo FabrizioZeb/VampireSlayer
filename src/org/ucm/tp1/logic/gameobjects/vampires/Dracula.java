@@ -34,7 +34,7 @@ public class Dracula extends Vampire{
     }
 
 
-    public boolean receiveSlayerAttack(int damage) {
+/*    public boolean receiveSlayerAttack(int damage) {
         this.resistance = this.resistance - damage;
         return true;
     }
@@ -46,7 +46,7 @@ public class Dracula extends Vampire{
 
 
     public boolean receiveLightFlash() {
-        return super.receiveLightFlash();
+        return false;
     }
 
 
@@ -62,7 +62,7 @@ public class Dracula extends Vampire{
     @Override
     public boolean receiveExplosionDmg(int damage) {
         return false;
-    }
+    }*/
 
 
     @Override
