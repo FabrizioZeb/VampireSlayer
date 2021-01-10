@@ -3,6 +3,8 @@ package org.ucm.tp1.logic;
 import java.util.EmptyStackException;
 import java.util.Random;
 
+import org.ucm.tp1.exceptions.DraculaIsAliveException;
+import org.ucm.tp1.exceptions.UnvalidPositionException;
 import org.ucm.tp1.view.GamePrinter;
 import org.ucm.tp1.logic.gameobjects.slayers.Slayer;
 import org.ucm.tp1.logic.gameobjects.vampires.Vampire;
@@ -174,11 +176,13 @@ public class Game implements IPrintable {
 		coins.increaseCoins(COINS);
 	}
 	
-	public boolean addSelectedVampire(String type, int x, int y) {
+	public boolean addSelectedVampire(String type, int x, int y) throws UnvalidPositionException, DraculaIsAliveException {
 		if(level.getDim_x() > x && level.getDim_y() > y) {
 			if (Vampire.getRemainingVampires() == 0) return false;
 			else
+				if(gameob.getObjectInPos(x,y) == null)
 				return gameob.addSelectedVampire(type, x, y);
+				else throw new UnvalidPositionException("[ERROR]: Position (" + x + ", " + y + "): Unvalid position");
 		}
 		else return false;
 	}

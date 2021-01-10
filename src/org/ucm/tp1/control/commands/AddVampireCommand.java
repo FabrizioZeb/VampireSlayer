@@ -1,6 +1,8 @@
 package org.ucm.tp1.control.commands;
 
+import org.ucm.tp1.exceptions.CommandExecuteException;
 import org.ucm.tp1.exceptions.CommandParseException;
+import org.ucm.tp1.exceptions.UnvalidPositionException;
 import org.ucm.tp1.logic.Game;
 
 public class AddVampireCommand extends NoPCommand{
@@ -17,8 +19,12 @@ public class AddVampireCommand extends NoPCommand{
 	}
 
 	@Override
-	public boolean execute(Game game) {
-		return game.addSelectedVampire(type, x, y);
+	public boolean execute(Game game) throws CommandExecuteException{
+		try{ return game.addSelectedVampire(type,x,y);}
+		catch (UnvalidPositionException upe){
+			System.out.println(upe.getMessage());
+			throw new CommandExecuteException(String.format("[ERROR]: Fail to add vampire"),upe);
+		}
 	}
 
 	@Override

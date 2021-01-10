@@ -1,5 +1,6 @@
 package org.ucm.tp1.logic;
 
+import org.ucm.tp1.exceptions.DraculaIsAliveException;
 import org.ucm.tp1.logic.gameobjects.GameObject;
 import org.ucm.tp1.logic.gameobjects.slayers.Slayer;
 import org.ucm.tp1.logic.gameobjects.vampires.Vampire;
@@ -137,33 +138,29 @@ public class GameObjectBoard {
 	
 
 	
-	public boolean addSelectedVampire(String type, int x, int y) {
-		if(type.equalsIgnoreCase("v") && getObjectInPos(x,y) == null ) {
-			gameObjectList.addObject(new Vampire(x,y,game));
-			Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard()+1);
-			Vampire.setRemainingVampires(Vampire.getRemainingVampires()-1);
-			return true;
-		}
-		else if(type.equalsIgnoreCase("e") && getObjectInPos(x,y) == null) {
-			gameObjectList.addObject(new ExplosiveVampire(x,y,game));
-			Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard()+1);
-			Vampire.setRemainingVampires(Vampire.getRemainingVampires()-1);
-			return true;
-		}
-		else if(type.equalsIgnoreCase("d") && getObjectInPos(x,y) == null) {
-			if(!Dracula.Alive()) {
-				gameObjectList.addObject(new Dracula(x,y,game));
-				Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard()+1);
-				Vampire.setRemainingVampires(Vampire.getRemainingVampires()-1);
+	public boolean addSelectedVampire(String type, int x, int y) throws DraculaIsAliveException {
+			if (type.equalsIgnoreCase("v")) {
+				gameObjectList.addObject(new Vampire(x, y, game));
+				Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard() + 1);
+				Vampire.setRemainingVampires(Vampire.getRemainingVampires() - 1);
 				return true;
 			}
-			else System.out.println("[ERROR]: Dracula is already alive");
-			return false;
-		}
-		else {
-			System.out.println("[ERROR]: invalid type");
-			return false;
-		}
+			else if (type.equalsIgnoreCase("e")) {
+				gameObjectList.addObject(new ExplosiveVampire(x, y, game));
+				Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard() + 1);
+				Vampire.setRemainingVampires(Vampire.getRemainingVampires() - 1);
+				return true;
+			}
+			else if (type.equalsIgnoreCase("d")) {
+				if (!Dracula.Alive()) {
+					gameObjectList.addObject(new Dracula(x, y, game));
+					Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard() + 1);
+					Vampire.setRemainingVampires(Vampire.getRemainingVampires() - 1);
+					return true;
+				}
+				else throw new DraculaIsAliveException("[ERROR]: Dracula is already alive");
+			}
+			else return false;
 	}
 
 	public void update() {
