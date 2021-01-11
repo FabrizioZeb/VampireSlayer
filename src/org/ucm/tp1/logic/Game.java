@@ -296,6 +296,25 @@ public class Game implements IPrintable {
 		return GameFinished();
 	}
 	
+	//Guardo y cargado
+	
+	public String serialize() {
+		String z;
+		z ="Cycles: " + cycles + "\n";
+		z +="Level: " + level + "\n";
+		z +="Coins: " + coins.getCoins() + "\n";
+		z +="Remaining Vampires: " + Vampire.getRemainingVampires() + "\n";
+		z +="Vampires on the Board: " + Vampire.getVampiresOnBoard() + "\n\n";
+		z +="Game Object List:" + "\n";
+		for(int i=0; i < gameob.getListSize();i++) {
+			z += gameob.getClassToString(i) + ";" + gameob.getObjectX(i) + ";" + gameob.getObjectY(i) + ";" + gameob.getObjectLife(i);
+			if(gameob.getClassToString(i).equals("B")) z += ";" + gameob.getObjectCost(i);
+			else if(!gameob.getClassToString(i).equals("S")) z += ";" + gameob.getObjectStep(i);
+			z += "\n";
+		}
+		return z;
+	}
+	
 	
 	//Winning msg
 	public String getWinnerMessage() {

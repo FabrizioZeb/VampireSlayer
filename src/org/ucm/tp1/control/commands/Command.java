@@ -1,5 +1,7 @@
 package org.ucm.tp1.control.commands;
 
+import java.io.IOException;
+
 import org.ucm.tp1.exceptions.CommandExecuteException;
 import org.ucm.tp1.exceptions.CommandParseException;
 import org.ucm.tp1.logic.Game;
@@ -21,7 +23,7 @@ public abstract class Command {
 	    this.help = help;
 	  }
 	  
-	  public abstract boolean execute(Game game) throws CommandExecuteException;
+	  public abstract boolean execute(Game game) throws CommandExecuteException, IOException;
 	  
 	  public abstract Command parse(String[] commandWords) throws CommandParseException;
 	  

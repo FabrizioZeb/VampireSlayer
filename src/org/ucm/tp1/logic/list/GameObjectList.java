@@ -109,4 +109,32 @@ public class GameObjectList {
             list.get(i).update(game);
         }
     }
+    
+    public int getListSize() {
+    	return list.size();
+    }
+    
+    public String getClassToString(int i) {
+    	return list.get(i).getClassToString();
+    }
+    
+    public int getObjectX(int i) {
+    	return list.get(i).getX();
+    }
+    
+    public int getObjectY(int i) {
+    	return list.get(i).getY();
+    }
+    
+    public int getObjectLife(int i) {
+    	return list.get(i).getResistance();
+    }
+    
+    public int getObjectCost(int i) {
+    	return list.get(i).getCost();
+    }
+    
+    public int getObjectStep(int i) {
+    	return list.get(i).getCycles();
+    }
 }

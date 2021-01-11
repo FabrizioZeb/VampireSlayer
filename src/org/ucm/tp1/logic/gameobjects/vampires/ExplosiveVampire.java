@@ -63,6 +63,11 @@ public class ExplosiveVampire extends Vampire {
     public String getIcon() {
         return "EV["+this.resistance+"]";
     }
+    
+	@Override
+	public String getClassToString() {
+		return "EV";
+	}
 
 
 //Health

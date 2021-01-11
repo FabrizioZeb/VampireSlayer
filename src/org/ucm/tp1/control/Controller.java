@@ -1,5 +1,6 @@
 package org.ucm.tp1.control;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import org.ucm.tp1.control.commands.Command;
@@ -26,13 +27,13 @@ public class Controller {
    	 System.out.println(game.printGame());
    }
     
-    public void run() {
+    public void run() throws IOException {
 	    	boolean refreshDisplay = true;
 
 	    while (!game.isFinish()){
 	    		
         	if (refreshDisplay){ printGame();
-        		 refreshDisplay = false;
+        		 refreshDisplay = true;
         		 
 			  System.out.println(prompt);	
 			  String s = scanner.nextLine();

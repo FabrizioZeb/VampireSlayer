@@ -140,6 +140,11 @@ public class Slayer extends GameObject {
     	return  false;
     }
 
+	@Override
+	public String getClassToString() {
+		return "S";
+	}
+
 
 
 

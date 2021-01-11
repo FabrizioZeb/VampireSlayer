@@ -124,6 +124,10 @@ public class Vampire extends GameObject {
     public String getIcon() {
         return "V["+this.resistance+"]";
     }
+    
+	public String getClassToString() {
+		return "V";
+	}
 
 
 //Health

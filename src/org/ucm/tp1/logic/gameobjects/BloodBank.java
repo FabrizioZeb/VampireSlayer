@@ -127,5 +127,10 @@ public class BloodBank extends GameObject {
 	public boolean GameOver(){
 		return false;
 	}
+	
+	@Override
+	public String getClassToString() {
+		return "B";
+	}
 
 }

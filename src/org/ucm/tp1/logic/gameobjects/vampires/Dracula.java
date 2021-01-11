@@ -85,6 +85,11 @@ public class Dracula extends Vampire{
     public String getIcon() {
         return "D["+this.resistance+"]";
     }
+    
+	@Override
+	public String getClassToString() {
+		return "D";
+	}
 
 
 //Health

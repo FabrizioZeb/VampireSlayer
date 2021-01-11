@@ -167,5 +167,32 @@ public class GameObjectBoard {
 	public void update() {
 		gameObjectList.update();
 	}
+	
+	public int getListSize() {
+		return gameObjectList.getListSize();
+	}
+	
+	public String getClassToString(int i) {
+		return gameObjectList.getClassToString(i);
+	}
+	
+	public int getObjectX(int i) {
+		return gameObjectList.getObjectX(i);
+	}
+	
+	public int getObjectY(int i) {
+		return gameObjectList.getObjectY(i);
+	}
+	
+	public int getObjectLife(int i) {
+		return gameObjectList.getObjectLife(i);
+	}
+	
+	public int getObjectCost(int i) {
+		return gameObjectList.getObjectCost(i);
+	}
+	public int getObjectStep(int i) {
+		return gameObjectList.getObjectStep(i);
+	}
 }
 

@@ -5,7 +5,7 @@ import org.ucm.tp1.logic.list.GameObjectList;
 
 public abstract class GameObject implements IAttack{
 
-    protected int x;
+	protected int x;
     protected int y;
     protected static  Game game;
 
@@ -42,6 +42,8 @@ public abstract class GameObject implements IAttack{
     public abstract void setCycles(int i);
 	
 	public abstract boolean GameOver();
+	
+	public abstract String getClassToString();
 	
     //IAttack interface start:
     public abstract void attack();

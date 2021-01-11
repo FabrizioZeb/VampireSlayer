@@ -13,7 +13,9 @@ public class CommandGenerator {
             new AddVampireCommand(),
             new GarlicPushCommand(),
             new LightFlashCommand(),
-            new SuperCoinsCommand()
+            new SuperCoinsCommand(),
+            new SerializeCommand(),
+            new SaveCommand()
     };
 
     public static Command parseCommand(String [] commandWords) throws CommandParseException {
