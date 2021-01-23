@@ -22,8 +22,8 @@ public class AddVampireCommand extends NoPCommand{
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException{
 		try{
-			game.addSelectedVampire(type,x,y);
-
+			if(game.addSelectedVampire(type,x,y))
+			return true;
 		}
 		catch (UnvalidPositionException | NoMoreVampiresException upe){
 			System.out.println(upe.getMessage());

@@ -68,8 +68,6 @@ public class BloodBank extends GameObject {
 
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -92,24 +90,9 @@ public class BloodBank extends GameObject {
 	}
 
 	@Override
-	public boolean receiveSlayerAttack(int damage) {
-		return false;
-	}
-
-	@Override
 	public boolean receiveVampireAttack(int damage) {
 		setResistance(0);
 		return true;
-	}
-
-	@Override
-	public boolean receiveLightFlash() {
-		return false;
-	}
-
-	@Override
-	public boolean receiveGarlicPush() {
-		return false;
 	}
 
 	@Override
@@ -119,11 +102,6 @@ public class BloodBank extends GameObject {
 	}
 
 	@Override
-	public boolean receiveExplosionDmg(int damage) {
-		return false;
-	}
-	
-	@Override
 	public boolean GameOver(){
 		return false;
 	}
@@ -132,5 +110,4 @@ public class BloodBank extends GameObject {
 	public String getClassToString() {
 		return "B";
 	}
-
 }

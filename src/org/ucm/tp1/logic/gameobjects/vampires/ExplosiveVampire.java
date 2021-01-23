@@ -27,27 +27,6 @@ public class ExplosiveVampire extends Vampire {
         return true;
     }
 
-
-    public boolean receiveVampireAttack(int damage) {
-        return false;
-    }
-
-
-    public boolean receiveLightFlash() {
-       return super.receiveLightFlash();
-    }
-
-
-    public boolean receiveGarlicPush() {
-        return super.receiveGarlicPush();
-    }
-
-
-    public boolean receiveDraculaAttack() {
-        return false;
-    }
-
-
     @Override
     public void attack(){
     super.attack();

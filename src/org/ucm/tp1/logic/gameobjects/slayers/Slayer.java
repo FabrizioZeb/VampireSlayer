@@ -31,33 +31,15 @@ public class Slayer extends GameObject {
     public void update(Game game) {
     }
 
-    public boolean receiveSlayerAttack(int damage) {
-        return false;
-    }
-
     public boolean receiveVampireAttack(int damage) {
         this.resistance = this.resistance - damage;
         return true;
-    }
-
-    public boolean receiveLightFlash() {
-        return false;
-    }
-
-    public boolean receiveGarlicPush() {
-        return false;
     }
 
     public boolean receiveDraculaAttack() {
         setResistance(0);
         return true;
     }
-
-
-    public boolean receiveExplosionDmg(int damage) {
-        return false;
-    }
-
 
     @Override
     public void attack() {

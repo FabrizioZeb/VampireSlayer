@@ -68,11 +68,6 @@ public class Vampire extends GameObject {
     }
 
 
-    public boolean receiveVampireAttack(int damage) {
-        return false;
-    }
-
-
     public boolean receiveLightFlash() {
             setResistance(0);
         return true;
@@ -89,13 +84,10 @@ public class Vampire extends GameObject {
     }
 
 
-    public boolean receiveDraculaAttack() {
-        return false;
-    }
-
     @Override
     public boolean receiveExplosionDmg(int damage) {
-        return false;
+    	this.resistance = this.resistance - damage;
+        return true;
     }
 
 

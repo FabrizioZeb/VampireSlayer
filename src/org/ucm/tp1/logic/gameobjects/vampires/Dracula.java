@@ -44,11 +44,11 @@ public class Dracula extends Vampire{
         return false;
     }
 
-
+*/
     public boolean receiveLightFlash() {
         return false;
     }
-
+/*
 
     public boolean receiveGarlicPush() {
         return super.receiveGarlicPush();

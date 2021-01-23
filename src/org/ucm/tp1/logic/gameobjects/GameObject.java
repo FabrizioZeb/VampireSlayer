@@ -46,13 +46,14 @@ public abstract class GameObject implements IAttack{
 	public abstract String getClassToString();
 	
     //IAttack interface start:
-    public abstract void attack();
+    /*public abstract void attack();
     public abstract boolean receiveSlayerAttack(int damage);
     public abstract boolean receiveVampireAttack(int damage);
     public abstract boolean receiveLightFlash();
     public abstract boolean receiveGarlicPush();
     public abstract boolean receiveDraculaAttack();
     public abstract boolean receiveExplosionDmg(int damage);
+    */
     //IAttack interface end;
 
 
