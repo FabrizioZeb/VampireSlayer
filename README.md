@@ -1,2 +1,2 @@
 # Práctica1 TP I
-Terminada hace 4 meses.
+Finalizado en diciembre de 2020
